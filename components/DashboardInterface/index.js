@@ -36,7 +36,7 @@ const Interface = ({ session, children }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/users?email=${session.user.email}`)
+      .get(`${process.env.BASE_URL}/api/users?email=${session.user.email}`)
       .then((res) => {
         setUser(res.data);
       })

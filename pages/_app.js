@@ -13,7 +13,6 @@ import { useRouter } from 'next/router';
 import Header from '../components/Header';
 import { UserProvider } from '../components/UserProvider';
 import { setOptions, getSession, Provider, useSession, signin, signout } from 'next-auth/client';
-// setOptions({ site: 'http://localhost:3000' });
 
 import theme from '../theme';
 import 'react-responsive-modal/styles.css';
