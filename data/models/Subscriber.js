@@ -27,6 +27,7 @@ const SubscriberSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    signUpSource: String,
   },
   { timestamps: true }
 );

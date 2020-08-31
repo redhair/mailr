@@ -66,7 +66,6 @@ function UserLandingPage({ linkId }) {
         subscriber: e.email,
       })
       .then((res) => {
-        // console.log({ res });
         setAlert({
           message: `Congrats! You have successfully joined ${user.name}'s mailing list.`,
           type: 'success',

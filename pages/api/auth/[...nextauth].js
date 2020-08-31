@@ -1,14 +1,6 @@
 import axios from 'axios';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-import mongoMiddleware from '../../../lib/api/mongo-middleware';
-
-function generateLink() {
-  return Math.random()
-    .toString(36)
-    .replace(/[^a-z]+/g, '')
-    .substr(0, 5);
-}
 
 const options = {
   site: process.env.SITE || 'http://localhost:3000',
@@ -31,20 +23,6 @@ const options = {
       console.log('SIGN IN: ', message);
       console.log('isNewUser: ', message.isNewUser);
       console.log(message.user.id);
-      if (message.isNewUser) {
-        // let link = generateLink();
-        // //update user
-        // axios
-        //   .post(`http://localhost:3000/api/users/${message.user.id}`, {
-        //     link,
-        //   })
-        //   .then((res) => {
-        //     console.log({ res });
-        //   })
-        //   .catch((err) => {
-        //     console.error({ err });
-        //   });
-      }
     },
     signOut: async (message) => {
       /* on signout */
@@ -57,11 +35,7 @@ const options = {
 
       //update user
       try {
-        let link = generateLink();
-        console.log('Generated link: ', link);
-        let res = await axios.post(`http://localhost:3000/api/users/${message.id}`, {
-          link,
-        });
+        let res = await axios.post(`http://localhost:3000/api/users/${message.id}?action=createLink`);
         console.log('Link gen response: ', { res });
       } catch (err) {
         console.error('Link gen error: ', { err });
