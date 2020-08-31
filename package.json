@@ -1,0 +1,50 @@
+{
+  "name": "with-mongo-connection",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.5.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@zeit/next-css": "^1.0.1",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "formik": "^2.1.4",
+    "isomorphic-unfetch": "3.0.0",
+    "js-cookie": "^2.2.1",
+    "jwt-decode": "^2.2.0",
+    "logrocket": "^1.0.7",
+    "logrocket-react": "^4.0.1",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.7.7",
+    "mongoose-unique-array": "^0.3.4",
+    "next": "^9.4.4",
+    "next-auth": "^3.1.0",
+    "react": "16.13.1",
+    "react-avatar-editor": "^11.0.9",
+    "react-dom": "16.13.1",
+    "react-dropzone": "^11.0.1",
+    "react-facebook-pixel": "^0.1.3",
+    "react-ga": "^2.7.0",
+    "react-responsive-modal": "^5.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.3",
+    "react-toastify": "^6.0.4",
+    "styled-components": "^5.1.0",
+    "swr": "^0.2.0",
+    "uuid": "^8.2.0",
+    "validator": "^13.1.1",
+    "yup": "^0.28.5"
+  },
+  "peerOptionalDependencies": {
+    "mongodb": "^3.5.9"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.5.1"
+  }
+}

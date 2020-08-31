@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Applies danger styles 1`] = `
+<button
+  className="sc-AxjAm fHfBmX"
+/>
+`;
+
+exports[`Button Applies outline styles 1`] = `
+<button
+  className="sc-AxjAm dvybpC"
+/>
+`;
+
+exports[`Button Applies primary styles 1`] = `
+<button
+  className="sc-AxjAm fHfBmX"
+/>
+`;
+
+exports[`Button Applies secondary styles 1`] = `
+<button
+  className="sc-AxjAm jVzkzi"
+/>
+`;
+
+exports[`Button Renders a full width button 1`] = `
+<button
+  className="sc-AxjAm hjMzIs"
+/>
+`;
