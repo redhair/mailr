@@ -10,6 +10,7 @@ function Home() {
   return (
     <>
       <Head>
+        <title>mailr</title>
         <meta name="google-site-verification" content="c5waVPaTtomi8lA4XuEDbsc0uWi2IuKe74iNwMxWPto" />
       </Head>
       <Row justify="center" style={{ marginBottom: '100px', marginTop: '50px' }}>
@@ -133,5 +134,9 @@ function Home() {
     </>
   );
 }
+
+Home.getInitialProps = () => {
+  return {};
+};
 
 export default Home;

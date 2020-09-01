@@ -21,6 +21,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 export default function Client({ Component, pageProps, router }) {
   // async componentDidMount() {
+  //   console.log("in app");
   //   // if (isProduction) {
   //   //   LogRocket.init('5oien4/afito', {
   //   //     rootHostname: 'afito.com',
@@ -59,41 +60,35 @@ export default function Client({ Component, pageProps, router }) {
     //   icon: <i className="fas fa-cog"></i>,
     // },
   ];
-  if (!loading) {
-    return (
-      <UserProvider>
-        <Provider session={pageProps.session}>
-          <ThemeProvider theme={theme}>
-            <ModalProvider>
-              <>
-                {!loading && (
-                  <Header
-                    user={session ? session.user : null}
-                    nav={nav}
-                    isFixed={true}
-                    signIn={signin}
-                    signOut={() => {
-                      signout();
-                      window.location = '/';
-                    }}
-                  />
-                )}
-                {router.pathname.startsWith('/dashboard') ? (
-                  <DashboardInterface session={session}>
-                    <Component {...pageProps} />
-                  </DashboardInterface>
-                ) : (
-                  <ClientInterface>
-                    <Component {...pageProps} />
-                  </ClientInterface>
-                )}
-              </>
-            </ModalProvider>
-          </ThemeProvider>
-        </Provider>
-      </UserProvider>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <UserProvider>
+      <ThemeProvider theme={theme}>
+        <ModalProvider>
+          <>
+            {!loading && (
+              <Header
+                user={session ? session.user : null}
+                nav={nav}
+                isFixed={true}
+                signIn={signin}
+                signOut={() => {
+                  signout();
+                  window.location = '/';
+                }}
+              />
+            )}
+            {router.pathname.startsWith('/dashboard') ? (
+              <DashboardInterface session={session}>
+                <Component {...pageProps} />
+              </DashboardInterface>
+            ) : (
+              <ClientInterface>
+                <Component {...pageProps} />
+              </ClientInterface>
+            )}
+          </>
+        </ModalProvider>
+      </ThemeProvider>
+    </UserProvider>
+  );
 }

@@ -49,7 +49,7 @@ function UserLandingPage({ linkId }) {
 
   useEffect(() => {
     if (linkId && !user) {
-      fetch(`${process.env.BASE_URL}/api/users?link=${linkId}`)
+      fetch(`/api/users?link=${linkId}`)
         .then((r) => r.json())
         .then((user) => {
           setUser(user);
@@ -62,7 +62,7 @@ function UserLandingPage({ linkId }) {
   function onSubmit(e) {
     setLoading(true);
     axios
-      .put(`${process.env.BASE_URL}/api/users/${user._id}`, {
+      .put(`/api/users/${user._id}`, {
         subscriber: e.email,
       })
       .then((res) => {
