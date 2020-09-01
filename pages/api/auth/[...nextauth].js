@@ -3,7 +3,7 @@ import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
 const options = {
-  debug: true,
+  debug: false,
   providers: [
     Providers.Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
@@ -34,7 +34,7 @@ const options = {
 
       //update user
       try {
-        let res = await axios.post(`/api/users/${message.id}?action=createLink`);
+        let res = await axios.post(`${process.env.NEXTAUTH_URL}/api/users/${message.id}?action=createLink`);
         console.log('Link gen response: ', { res });
       } catch (err) {
         console.error('Link gen error: ', { err });
