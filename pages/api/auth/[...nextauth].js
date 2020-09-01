@@ -3,8 +3,7 @@ import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
 const options = {
-  site: process.env.BASE_URL || 'http://localhost:3000',
-  debug: false,
+  debug: true,
   providers: [
     Providers.Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
