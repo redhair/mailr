@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import useSWR from 'swr';
 import PropTypes from 'prop-types';
 import { Heading, Text } from '../../components/Typography';
 

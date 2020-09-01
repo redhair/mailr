@@ -34,7 +34,6 @@
     "react-scripts": "^3.4.3",
     "react-toastify": "^6.0.4",
     "styled-components": "^5.1.0",
-    "swr": "^0.2.0",
     "uuid": "^8.2.0",
     "validator": "^13.1.1",
     "yup": "^0.28.5"

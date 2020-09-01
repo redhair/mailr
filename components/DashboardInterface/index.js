@@ -9,9 +9,9 @@ import { Row } from '../Grid';
 import Button from '../Button';
 import Nav from '../Nav';
 import LinkPopup from '../LinkPopup';
+import AccessDenied from '../AccessDenied';
 import { signin } from 'next-auth/client';
 import { UserProvider, UserContext } from '../UserProvider';
-
 const InterfaceContainer = styled(Container)`
   @media (min-width: ${(props) => props.theme.xs}) {
     padding-left: 88px;
@@ -36,7 +36,7 @@ const Interface = ({ session, children }) => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BASE_URL}/api/users?email=${session.user.email}`)
+      .get(`/api/users?email=${session.user.email}`)
       .then((res) => {
         setUser(res.data);
       })
@@ -56,15 +56,16 @@ const Interface = ({ session, children }) => {
     // },
   ];
 
+  if (!session) {
+    return <AccessDenied />;
+  }
+
   return (
     <>
       {modalContent && <Modal maxWidth="600px">{modalContent}</Modal>}
-      {!session ? (
-        signin()
-      ) : (
-        <>
-          <Nav>
-            {/* {!!session.user && (
+      <>
+        <Nav>
+          {/* {!!session.user && (
               <Link href="/dashboard">
                 <a>
                   <Row canWrap={false} style={{ marginBottom: '15px' }}>
@@ -74,41 +75,40 @@ const Interface = ({ session, children }) => {
                 </a>
               </Link>
             )} */}
-            <Button
-              level="link"
-              onClick={() => {
-                setModalContent(<LinkPopup link={user.link} />);
-                showModal();
+          <Button
+            level="link"
+            onClick={() => {
+              setModalContent(<LinkPopup link={user.link} />);
+              showModal();
+            }}
+          >
+            <i className="fas fa-link"></i>
+            <Text
+              style={{
+                marginLeft: '8px',
               }}
             >
-              <i className="fas fa-link"></i>
-              <Text
-                style={{
-                  marginLeft: '8px',
-                }}
-              >
-                &nbsp;My Link
-              </Text>
-            </Button>
+              &nbsp;My Link
+            </Text>
+          </Button>
 
-            {nav.map((n) => (
-              <Link key={n.name} href={n.href}>
-                <a>
-                  {n.icon}
-                  <Text
-                    style={{
-                      marginLeft: '8px',
-                    }}
-                  >
-                    &nbsp;{n.name}
-                  </Text>
-                </a>
-              </Link>
-            ))}
-          </Nav>
-          <InterfaceContainer>{children}</InterfaceContainer>
-        </>
-      )}
+          {nav.map((n) => (
+            <Link key={n.name} href={n.href}>
+              <a>
+                {n.icon}
+                <Text
+                  style={{
+                    marginLeft: '8px',
+                  }}
+                >
+                  &nbsp;{n.name}
+                </Text>
+              </a>
+            </Link>
+          ))}
+        </Nav>
+        <InterfaceContainer>{children}</InterfaceContainer>
+      </>
     </>
   );
 };

@@ -43,6 +43,7 @@ export default function Client({ Component, pageProps, router }) {
   //   // }
   // }
   const [session, loading] = useSession();
+
   const nav = [
     // {
     //   name: 'Dashboard',
@@ -73,7 +74,7 @@ export default function Client({ Component, pageProps, router }) {
                 signIn={signin}
                 signOut={() => {
                   signout();
-                  window.location = '/';
+                  router.push('/');
                 }}
               />
             )}
