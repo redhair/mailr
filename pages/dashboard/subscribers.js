@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import Head from 'next/head';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Heading, Text } from '../../components/Typography';
@@ -42,6 +43,9 @@ function Subscribers(props) {
   if (user) {
     return (
       <>
+        <Head>
+          <title>Subscribers</title>
+        </Head>
         <MainHeading level={1}>Subscribers</MainHeading>
         {user && user.subscribers.length > 0 && !fetching ? (
           <>

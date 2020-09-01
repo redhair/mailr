@@ -7,11 +7,13 @@ import Link from 'next/link';
 import { useSession, signin, signout } from 'next-auth/client';
 
 function Home() {
+  const metaDescription = `mailr makes building a newsletter simple for all influencers. Engage with your audience in a whole new way with mailr.`;
   return (
     <>
       <Head>
         <title>mailr</title>
         <meta name="google-site-verification" content="BXb7e_nv3O4Z1slg2aQ1p-DrGj6KDUio0qOG10Ny4UA" />
+        <meta name="description" content={metaDescription}></meta>
       </Head>
       <Row justify="center" style={{ marginBottom: '100px', marginTop: '50px' }}>
         <style jsx>{`
@@ -134,9 +136,5 @@ function Home() {
     </>
   );
 }
-
-Home.getInitialProps = () => {
-  return {};
-};
 
 export default Home;
