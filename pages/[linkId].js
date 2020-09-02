@@ -118,9 +118,9 @@ function UserLandingPage({ linkId }) {
   }
 
   const canonical = `https://mailr.link/`;
-  const metaTitle = `Join ${user.name}'s mailing list`;
-  const metaImage = user.image;
-  const metaImageAlt = `${user.name}'s avatar`;
+  const metaTitle = user ? `Join ${user.name}'s mailing list` : '';
+  const metaImage = user ? user.image : '';
+  const metaImageAlt = user ? `${user.name}'s avatar` : '';
   const metaDescription = `The fastest way to grow your mailing list`;
 
   return (
