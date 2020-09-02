@@ -8,7 +8,7 @@ AccessDenied.propTypes = {};
 function AccessDenied(props) {
   return (
     <div>
-      <Button level="primary" onClick={() => signIn()}>
+      <Button level="primary" onClick={() => signin()}>
         Sign in
       </Button>
     </div>

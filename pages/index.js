@@ -7,13 +7,39 @@ import Link from 'next/link';
 import { useSession, signin, signout } from 'next-auth/client';
 
 function Home() {
+  const canonical = `https://mailr.link/`;
+  const metaTitle = 'mailr';
+  const metaImage = '/logo_transparent.png';
+  const metaImageAlt = 'mailr Logo';
   const metaDescription = `mailr makes building a newsletter simple for all influencers. Engage with your audience in a whole new way with mailr.`;
+
   return (
     <>
       <Head>
-        <title>mailr</title>
+        <title>{metaTitle}</title>
         <meta name="google-site-verification" content="BXb7e_nv3O4Z1slg2aQ1p-DrGj6KDUio0qOG10Ny4UA" />
         <meta name="description" content={metaDescription}></meta>
+        <meta name="robots" content="index, follow"></meta>
+        <meta name="author" content="mailr"></meta>
+        <meta property="application-name" content="mailr"></meta>
+        <meta property="msapplication-tooltip" content={metaTitle}></meta>
+        <meta property="msapplication-starturl" content="https://mailr.link"></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta property="og:title" content={metaTitle}></meta>
+        <meta property="og:description" content={metaDescription}></meta>
+        <meta property="og:image" content={metaImage}></meta>
+        <meta property="og:image:alt" content={metaImageAlt}></meta>
+        <meta property="og:image:width" content="500"></meta>
+        <meta property="og:image:height" content="500"></meta>
+        <meta property="og:url" content={canonical}></meta>
+        <meta property="og:site_name" content="mailr"></meta>
+        <meta property="og:locale" content="en_US"></meta>
+        <meta name="twitter:card" content="summary"></meta>
+        <meta name="twitter:site" content="@mailrlink"></meta>
+        <meta name="twitter:title" content={metaTitle}></meta>
+        <meta name="twitter:description" content={metaDescription}></meta>
+        <meta name="twitter:image" content={metaImage}></meta>
+        <meta name="twitter:image:alt" content={metaImageAlt}></meta>
       </Head>
       <Row justify="center" style={{ marginBottom: '100px', marginTop: '50px' }}>
         <style jsx>{`

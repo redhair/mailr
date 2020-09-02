@@ -14,7 +14,7 @@ export default mongoMiddleware(async (req, res, connection, models) => {
   apiHandler(res, method, {
     GET: (response) => {
       if (link) {
-        models.User.findOne({ link }, 'name link', (error, user) => {
+        models.User.findOne({ link }, 'name image link', (error, user) => {
           if (error) {
             response.status(500).json({ error });
             connection.close();

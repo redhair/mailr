@@ -76,7 +76,7 @@ const Interface = ({ session, children }) => {
               </Link>
             )} */}
           <Button
-            level="link"
+            level="primary"
             onClick={() => {
               setModalContent(<LinkPopup link={user.link} />);
               showModal();

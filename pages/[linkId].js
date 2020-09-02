@@ -20,6 +20,19 @@ const Wrapper = styled.div`
   width: 100%;
   height: 73vh;
   margin: auto;
+  margin-bottom: 75px;
+  margin-top: 25px;
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    margin-bottom: 75px;
+    margin-top: 50px;
+    padding-top: 25px;
+  }
+
+  @media (min-width: ${(props) => props.theme.sm}) {
+    margin-bottom: 75px;
+    margin-top: 25px;
+  }
 
   opacity: ${(props) => (props.shown ? 100 : 0)};
   transition: all 1s ease-in-out;
@@ -32,6 +45,20 @@ const Wrapper = styled.div`
 
 const ErrorMessage = styled(Heading)`
   color: ${(props) => props.theme.dangerColor};
+`;
+
+const Image = styled.img`
+  width: 200px;
+  margin-bottom: 36px;
+  border-radius: 100%;
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    width: 150px;
+  }
+
+  @media (min-width: ${(props) => props.theme.sm}) {
+    width: 200px;
+  }
 `;
 
 const EmailSchema = Yup.object().shape({
@@ -95,6 +122,7 @@ function UserLandingPage({ linkId }) {
 
       {!alert && !!user && (
         <>
+          <Image src={user.image} />
           <Heading level={3}>Enter Your Information To Join {user.name}'s mailing list.</Heading>
           <Formik initialValues={{}} validationSchema={EmailSchema} onSubmit={onSubmit}>
             {() => (

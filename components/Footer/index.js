@@ -84,7 +84,7 @@ function Footer(props) {
         <a href="#">
           <SocialIcon className="fab fa-lg fa-facebook"></SocialIcon>
         </a>
-        <a href="#">
+        <a href="https://twitter.com/mailrlink">
           <SocialIcon className="fab fa-lg fa-twitter"></SocialIcon>
         </a>
         <a href="#">
