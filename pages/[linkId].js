@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Head from 'next/head';
 import { Heading, Text } from '../components/Typography';
 import Alert from '../components/Alert';
 import Button from '../components/Button';
@@ -116,30 +117,68 @@ function UserLandingPage({ linkId }) {
     );
   }
 
+  const canonical = `https://mailr.link/`;
+  const metaTitle = `Join ${user.name}'s mailing list`;
+  const metaImage = user.image;
+  const metaImageAlt = `${user.name}'s avatar`;
+  const metaDescription = `The fastest way to grow your mailing list`;
+
   return (
-    <Wrapper shown={shown}>
-      {!!alert && <Alert type={alert.type}>{alert.message}</Alert>}
+    <>
+      <Head>
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription}></meta>
+        <meta name="author" content="mailr"></meta>
+        <meta property="application-name" content="mailr"></meta>
+        <meta property="msapplication-tooltip" content={metaTitle}></meta>
+        <meta property="msapplication-starturl" content="https://mailr.link"></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta property="og:title" content={metaTitle}></meta>
+        <meta property="og:description" content={metaDescription}></meta>
+        <meta property="og:image" content={metaImage}></meta>
+        <meta property="og:image:alt" content={metaImageAlt}></meta>
+        <meta property="og:image:width" content="500"></meta>
+        <meta property="og:image:height" content="500"></meta>
+        <meta property="og:url" content={canonical}></meta>
+        <meta property="og:site_name" content="mailr"></meta>
+        <meta property="og:locale" content="en_US"></meta>
+        <meta name="twitter:card" content="summary"></meta>
+        <meta name="twitter:site" content="@mailrlink"></meta>
+        <meta name="twitter:title" content={metaTitle}></meta>
+        <meta name="twitter:description" content={metaDescription}></meta>
+        <meta name="twitter:image" content={metaImage}></meta>
+        <meta name="twitter:image:alt" content={metaImageAlt}></meta>
+      </Head>
+      <Wrapper shown={shown}>
+        {!!alert && <Alert type={alert.type}>{alert.message}</Alert>}
 
-      {!alert && !!user && (
-        <>
-          <Image src={user.image} />
-          <Heading level={3}>Enter Your Information To Join {user.name}'s mailing list.</Heading>
-          <Formik initialValues={{}} validationSchema={EmailSchema} onSubmit={onSubmit}>
-            {() => (
-              <Form>
-                <InputField placeholder="First Name" label="First Name" hideLabel type="text" name="first" />
-                <InputField placeholder="Last Name" label="Last Name" hideLabel type="text" name="last" />
-                <InputField placeholder="Enter your email address" label="Email" hideLabel type="email" name="email" />
+        {!alert && !!user && (
+          <>
+            <Image src={user.image} />
+            <Heading level={3}>Enter Your Information To Join {user.name}'s mailing list.</Heading>
+            <Formik initialValues={{}} validationSchema={EmailSchema} onSubmit={onSubmit}>
+              {() => (
+                <Form>
+                  <InputField placeholder="First Name" label="First Name" hideLabel type="text" name="first" />
+                  <InputField placeholder="Last Name" label="Last Name" hideLabel type="text" name="last" />
+                  <InputField
+                    placeholder="Enter your email address"
+                    label="Email"
+                    hideLabel
+                    type="email"
+                    name="email"
+                  />
 
-                <Button level="primary" disabled={loading}>
-                  {loading ? <LoadingBlock quiet small color="white" /> : 'Subscribe'}
-                </Button>
-              </Form>
-            )}
-          </Formik>
-        </>
-      )}
-    </Wrapper>
+                  <Button level="primary" disabled={loading}>
+                    {loading ? <LoadingBlock quiet small color="white" /> : 'Subscribe'}
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          </>
+        )}
+      </Wrapper>
+    </>
   );
 }
 
