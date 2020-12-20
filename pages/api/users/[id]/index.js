@@ -63,7 +63,7 @@ export default mongoMiddleware(async (req, res, connection, models) => {
     },
     PUT: (response) => {
       models.User.update(
-        { _id: id, 'subscribers.email': { $ne: body.subscriber } },
+        { _id: id, 'subscribers.email': { $ne: body.subscriber.email } },
         {
           $push: {
             subscribers: {
