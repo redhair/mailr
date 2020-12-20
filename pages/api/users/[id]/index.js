@@ -65,7 +65,7 @@ export default mongoMiddleware(async (req, res, connection, models) => {
       models.User.update(
         { _id: id },
         {
-          $push: {
+          $addToSet: {
             subscribers: {
               email: body.subscriber.email,
               firstName: body.subscriber.firstName,
@@ -77,6 +77,7 @@ export default mongoMiddleware(async (req, res, connection, models) => {
         (error, user) => {
           if (error) {
             if (error.code === 11000) {
+              //11000 means duplicate record
               connection.close();
               response.status(500).json({ error: 'You are already subscribed to this mailing list' });
             } else {
