@@ -13,8 +13,10 @@ export default mongoMiddleware(async (req, res, connection, models) => {
 
   apiHandler(res, method, {
     GET: (response) => {
+      console.log({ link });
       if (link) {
         models.User.findOne({ link }, 'name image link', (error, user) => {
+          console.log({ error, user });
           if (error) {
             response.status(500).json({ error });
             connection.close();

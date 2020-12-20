@@ -92,12 +92,12 @@ export default function Login({ providers }) {
           <Divider>
             <Text bold>OR</Text>
           </Divider>
-          {Object.values(providers).map((provider) => (
+          {Object.values(providers).map((provider, i) => (
             <>
               {provider.id === 'email' ? (
                 <></>
               ) : (
-                <Button level="outline" onClick={() => signIn(provider.id)}>
+                <Button key={i} level="outline" onClick={() => signIn(provider.id)}>
                   {getIcon(provider.id)}&nbsp;Sign in with {provider.name}
                 </Button>
               )}

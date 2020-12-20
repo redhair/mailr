@@ -85,7 +85,11 @@ function UserLandingPage({ linkId, user }) {
     setLoading(true);
     axios
       .put(`/api/users/${user._id}`, {
-        subscriber: e.email,
+        subscriber: {
+          email: e.email,
+          firstName: e.firstName,
+          lastName: e.lastName,
+        },
       })
       .then((res) => {
         setAlert({
@@ -180,35 +184,15 @@ function UserLandingPage({ linkId, user }) {
 
 export async function getServerSideProps(ctx) {
   const { linkId } = ctx.query;
-  let x = await api({ ...ctx.req, query: { link: linkId } }, ctx.res);
-  console.log({ x });
-  // const { linkId } = ctx.query;
-  // console.log({ linkId });
-  // try {
-  //   let res = await axios.get('http://localhost:3000/api/users?link=vk4nu9');
-  //   // console.log({ res });
-  //   return { linkId, user };
-  // } catch (err) {
-  //   console.error(err);
-  //   return { err };
-  // }
-  return {
-    props: {}, // will be passed to the page component as props
-  };
-}
 
-// UserLandingPage.getInitialProps = async (ctx) => {
-//   // const { linkId } = ctx.query;
-//   // console.log({ linkId });
-//   // try {
-//   //   let res = await axios.get('http://localhost:3000/api/users?link=vk4nu9');
-//   //   // console.log({ res });
-//   //   return { linkId, user };
-//   // } catch (err) {
-//   //   console.error(err);
-//   //   return { err };
-//   // }
-//   return {};
-// };
+  try {
+    let { data } = await axios.get(`http://localhost:3000/api/users?link=${linkId}`);
+    // console.log({ data });
+    return { props: { linkId: data.link, user: data } };
+  } catch (err) {
+    console.error(err);
+    return { props: { err } };
+  }
+}
 
 export default UserLandingPage;
