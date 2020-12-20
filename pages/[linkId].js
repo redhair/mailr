@@ -159,8 +159,8 @@ function UserLandingPage({ linkId, user }) {
             <Formik initialValues={{}} validationSchema={EmailSchema} onSubmit={onSubmit}>
               {() => (
                 <Form>
-                  <InputField placeholder="First Name" label="First Name" hideLabel type="text" name="first" />
-                  <InputField placeholder="Last Name" label="Last Name" hideLabel type="text" name="last" />
+                  <InputField placeholder="First Name" label="First Name" hideLabel type="text" name="firstName" />
+                  <InputField placeholder="Last Name" label="Last Name" hideLabel type="text" name="lastName" />
                   <InputField
                     placeholder="Enter your email address"
                     label="Email"

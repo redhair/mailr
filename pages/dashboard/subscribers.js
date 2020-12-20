@@ -81,11 +81,11 @@ function Subscribers(props) {
                 user.subscribers
                   .filter((s) => s.email)
                   .map((s) => {
-                    return { id: s._id, email: s.email };
+                    return { id: s._id, email: s.email, firstName: s.firstName, lastName: s.lastName };
                   })
                   .slice(page * subscribersPerPage, page * subscribersPerPage + subscribersPerPage)
               }
-              headers={['Email']}
+              headers={['Email', 'First Name', 'Last Name']}
             />
             <>
               {[...Array(Math.ceil(user.subscribers.filter((s) => s.email).length / subscribersPerPage)).keys()].map(
