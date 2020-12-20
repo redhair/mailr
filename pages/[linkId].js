@@ -186,7 +186,7 @@ export async function getServerSideProps(ctx) {
   const { linkId } = ctx.query;
 
   try {
-    let { data } = await axios.get(`http://localhost:3000/api/users?link=${linkId}`);
+    let { data } = await axios.get(`${process.env.NEXTAUTH_URL}/api/users?link=${linkId}`);
     // console.log({ data });
     return { props: { linkId: data.link, user: data } };
   } catch (err) {
