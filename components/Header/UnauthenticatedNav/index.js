@@ -18,14 +18,14 @@ function UnauthenticatedNav({ signIn }) {
         </a>
       </Link>
       <Nav>
-        <Button level="link" onClick={signIn}>
+        <Button level="link" onClick={() => router.push('login')}>
           Login
         </Button>
-        <Button level="link" onClick={() => router.push('join')}>
+        <Button level="link" onClick={() => router.push('login')}>
           Join
         </Button>
 
-        <Button onClick={() => router.push('join')} level="primary">
+        <Button onClick={() => router.push('login')} level="primary">
           Get My Link
         </Button>
       </Nav>
