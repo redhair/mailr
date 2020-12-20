@@ -64,7 +64,15 @@ export default mongoMiddleware(async (req, res, connection, models) => {
     PUT: (response) => {
       models.User.update(
         { _id: id, 'subscribers.email': { $ne: body.subscriber } },
-        { $push: { subscribers: { email: body.subscriber } } },
+        {
+          $push: {
+            subscribers: {
+              email: body.subscriber.email,
+              firstName: body.subscriber.firstName,
+              lastName: body.subscriber.lastName,
+            },
+          },
+        },
         { safe: true, upsert: true, new: true, runValidators: true },
         (error, user) => {
           if (error) {
