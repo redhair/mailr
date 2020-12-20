@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import fetch from 'isomorphic-unfetch';
 import axios from 'axios';
+import api from './api/users';
 
 const Wrapper = styled.div`
   display: flex;
@@ -68,22 +69,15 @@ const EmailSchema = Yup.object().shape({
   last: Yup.string(),
 });
 
-function UserLandingPage({ linkId }) {
+function UserLandingPage({ linkId, user }) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState();
   const [shown, setShown] = useState(false);
   const [error, setError] = useState();
-  const [user, setUser] = useState();
 
   useEffect(() => {
-    if (linkId && !user) {
-      fetch(`/api/users?link=${linkId}`)
-        .then((r) => r.json())
-        .then((user) => {
-          setUser(user);
-          setShown(true);
-        })
-        .catch((err) => setError('Could not find this user'));
+    if (linkId && user) {
+      setShown(true);
     }
   }, []);
 
@@ -117,10 +111,12 @@ function UserLandingPage({ linkId }) {
     );
   }
 
+  console.log({ user });
+
   const canonical = `https://mailr.link/`;
-  const metaTitle = user ? `Join ${user.name}'s mailing list` : '';
-  const metaImage = user ? user.image : '';
-  const metaImageAlt = user ? `${user.name}'s avatar` : '';
+  const metaTitle = `Join ${user.name}'s mailing list`;
+  const metaImage = user.image;
+  const metaImageAlt = `${user.name}'s avatar`;
   const metaDescription = `The fastest way to grow your mailing list`;
 
   return (
@@ -182,9 +178,37 @@ function UserLandingPage({ linkId }) {
   );
 }
 
-UserLandingPage.getInitialProps = async (ctx) => {
+export async function getServerSideProps(ctx) {
   const { linkId } = ctx.query;
-  return { linkId };
-};
+  let x = await api({ ...ctx.req, query: { link: linkId } }, ctx.res);
+  console.log({ x });
+  // const { linkId } = ctx.query;
+  // console.log({ linkId });
+  // try {
+  //   let res = await axios.get('http://localhost:3000/api/users?link=vk4nu9');
+  //   // console.log({ res });
+  //   return { linkId, user };
+  // } catch (err) {
+  //   console.error(err);
+  //   return { err };
+  // }
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
+
+// UserLandingPage.getInitialProps = async (ctx) => {
+//   // const { linkId } = ctx.query;
+//   // console.log({ linkId });
+//   // try {
+//   //   let res = await axios.get('http://localhost:3000/api/users?link=vk4nu9');
+//   //   // console.log({ res });
+//   //   return { linkId, user };
+//   // } catch (err) {
+//   //   console.error(err);
+//   //   return { err };
+//   // }
+//   return {};
+// };
 
 export default UserLandingPage;

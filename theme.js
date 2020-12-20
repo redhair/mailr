@@ -50,7 +50,7 @@ const theme = {
   inputFocusBorderWarning: '0 0 0 0.2rem lighten($warning-color, 5%)',
   inputFocusBorderDanger: '0 0 0 0.2rem lighten($danger-color, 5%)',
   inputFontColor: '#202b33',
-  inputBorderRadius: '4px',
+  inputBorderRadius: '50px',
   inputPadding: `${1.1 * 0.65}rem ${1.1 * 0.775}rem`,
   inputPrimaryFocusBorder: '0 0 0 0.2rem rgba(110, 148, 228, 0.3)',
   inputBackgroundColor: '#f4f5f7',

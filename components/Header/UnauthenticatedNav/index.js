@@ -8,6 +8,8 @@ import Nav from '../DesktopHeader/Nav';
 import DesktopHeaderWrapper from '../DesktopHeader/DesktopHeaderWrapper';
 
 function UnauthenticatedNav({ signIn }) {
+  const router = useRouter();
+
   return (
     <DesktopHeaderWrapper>
       <Link href="/">
@@ -19,11 +21,11 @@ function UnauthenticatedNav({ signIn }) {
         <Button level="link" onClick={signIn}>
           Login
         </Button>
-        <Button level="link" onClick={signIn}>
+        <Button level="link" onClick={() => router.push('join')}>
           Join
         </Button>
 
-        <Button onClick={signIn} level="primary">
+        <Button onClick={() => router.push('join')} level="primary">
           Get My Link
         </Button>
       </Nav>

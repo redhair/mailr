@@ -1,6 +1,7 @@
 {
   "name": "mailr",
   "version": "1.0.0",
+  "description": "An app for building a mailing list",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -21,7 +22,7 @@
     "mongodb": "^3.5.9",
     "mongoose": "^5.7.7",
     "mongoose-unique-array": "^0.3.4",
-    "next": "^9.4.4",
+    "next": "^10.0.3",
     "next-auth": "^3.1.0",
     "react": "16.13.1",
     "react-avatar-editor": "^11.0.9",

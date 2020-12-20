@@ -36,7 +36,7 @@ const Input = styled(Field)`
   appearance: none;
   margin: 5px 0;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: ${(props) => props.theme.inputBorderRadius};
   background-color: white; /*rgb(241, 244, 246);*/
   border: 1px solid #d2dce0;
   width: 100%;

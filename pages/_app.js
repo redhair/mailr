@@ -15,6 +15,7 @@ import { UserProvider } from '../components/UserProvider';
 import { setOptions, getSession, Provider, useSession, signin, signout } from 'next-auth/client';
 
 import theme from '../theme';
+import '../styles.css';
 import 'react-responsive-modal/styles.css';
 
 const isProduction = process.env.NODE_ENV === 'production';

@@ -2,8 +2,12 @@ import axios from 'axios';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
+const emailHost = 'smtp.sendgrid.net';
+const emailUsername = 'apikey'; // <- don't replace "apikey" it's the actual username
+const emailPassword = process.env.SENDGRID_API_KEY;
+
 const options = {
-  debug: false,
+  debug: true,
   providers: [
     Providers.Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
@@ -13,9 +17,19 @@ const options = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+    Providers.Email({
+      server: `smtp://${emailUsername}:${emailPassword}@${emailHost}:587`,
+      from: 'support@mailr.link',
+    }),
   ],
   database: process.env.DATABASE_URL,
-
+  pages: {
+    signIn: '/login',
+    // signOut: '/auth/signout',
+    // error: '/auth/error', // Error code passed in query string as ?error=
+    // verifyRequest: '/auth/verify-request', // (used for check email message)
+    newUser: '/dashboard/subscribers?showLink=true', // If set, new users will be directed here on first sign in
+  },
   events: {
     signIn: async (message) => {
       /* on successful sign in */

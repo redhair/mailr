@@ -34,6 +34,7 @@ const Header5 = styled.h5`
 `;
 
 const BodyText = styled.span`
+  font-weight: ${(props) => (props.bold ? 'bold' : 'normal')};
   font-family: ${(props) => props.theme.bodyFont};
   font-size: ${(props) => (props.type === 'normal' ? '20px' : '16px')};
   line-height: ${(props) => (props.type === 'normal' ? '36px' : '24px')};
@@ -61,9 +62,9 @@ Heading.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-function Text({ type, children, ...rest }) {
+function Text({ type, bold, children, ...rest }) {
   return (
-    <BodyText type={type} {...rest}>
+    <BodyText type={type} bold={bold} {...rest}>
       {children}
     </BodyText>
   );
@@ -71,6 +72,7 @@ function Text({ type, children, ...rest }) {
 
 Text.propTypes = {
   type: PropTypes.string,
+  bold: PropTypes.bool,
   children: PropTypes.node.isRequired,
 };
 

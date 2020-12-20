@@ -41,6 +41,7 @@ export default function SignInForm({ onSignIn, style }) {
 
   function onSubmit(userInfo) {
     setLoading(true);
+    console.log({ userInfo });
     onSignIn({ ...userInfo }, function (res) {
       if (res.status === 200) {
         setAlert({ type: 'success', message: res.data.message });
@@ -52,7 +53,7 @@ export default function SignInForm({ onSignIn, style }) {
   }
 
   const UserSchema = Yup.object().shape({
-    email: Yup.string().email().required('Required'),
+    username: Yup.string().required('Required'),
     password: Yup.string().required('Required'),
   });
 
@@ -62,17 +63,14 @@ export default function SignInForm({ onSignIn, style }) {
         {() => (
           <FormWrapper>
             {alert && <Alert type={alert.type}>{alert.message}</Alert>}
-            <InputField placeholder="example@domain.com" label="Email" hideLabel type="email" name="email" />
+            <InputField placeholder="Username" label="Username" hideLabel type="text" name="username" />
             <InputField placeholder="Password" label="Password" hideLabel name="password" type="password" />
             <Text>
               <a href="/account-recovery">Forgot your password?</a>
             </Text>
-            <Button level="secondary" disabled={loading}>
+            <Button type="submit" level="secondary" disabled={loading}>
               {loading ? <LoadingBlock quiet small color="white" /> : 'Go'}
             </Button>
-            <Text>
-              Dont have an account?&nbsp;<a href="/join">Register here.</a>
-            </Text>
           </FormWrapper>
         )}
       </Formik>

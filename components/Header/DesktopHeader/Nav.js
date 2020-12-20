@@ -1,9 +1,14 @@
 import styled from 'styled-components';
+import Button from '../../Button';
 
 const Nav = styled.nav`
   display: inline-flex;
   align-items: center;
   align-self: stretch;
+
+  & button + button {
+    margin-left: 32px !important;
+  }
 
   & span {
     font-size: 18px;

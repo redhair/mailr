@@ -33,11 +33,11 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=0" />
-          <link
+          {/* <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=0" /> */}
+          {/* <link
             href="https://fonts.googleapis.com/css2?family=Lekton:wght@700&family=Rubik:wght@400;500;600;700&display=swap"
             rel="stylesheet"
-          />
+          /> */}
           <meta name="msapplication-TileColor" content="#ffffff" />
           <meta name="theme-color" content="#ffffff"></meta>
 

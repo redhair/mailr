@@ -17,7 +17,6 @@ const SubscriberSchema = new mongoose.Schema(
         validator: validateEmail,
         message: 'Please fill a valid email address',
       },
-      unique: true,
     },
     firstName: {
       type: String,
