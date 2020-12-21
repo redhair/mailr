@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { providers, signIn } from 'next-auth/client';
 import Button from '../components/Button';
 import { Container, Row, Column } from '../components/Grid';
 import { Heading, Text } from '../components/Typography';
 import Input from '../components/Input';
-import SignInForm from '../components/SignInForm';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { getLocationOrigin } from 'next/dist/next-server/lib/utils';
 
 const Divider = styled(Row)`
   border: 0;
@@ -80,8 +78,13 @@ export default function Login({ providers }) {
               signIn('email', { email });
             }}
           >
-            {() => (
-              <FormWrapper>
+            {({ handleSubmit }) => (
+              <FormWrapper
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmit();
+                }}
+              >
                 <Input placeholder="email@example.com" label="Email" hideLabel type="text" name="email" />
 
                 <Button level="primary" type="submit">
