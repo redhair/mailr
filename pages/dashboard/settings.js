@@ -36,7 +36,6 @@ function Settings(props) {
       <Formik initialValues={{}} validationSchema={SettingsSchema} onSubmit={onSubmit}>
         {() => (
           <FormWrapper>
-            {!!alert.message && <Alert type={alert.type}>{alert.message}</Alert>}
             <InputField placeholder="username" label="Username" type="text" name="username" />
 
             <Button level="secondary" disabled={loading}>
