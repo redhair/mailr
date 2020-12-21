@@ -75,7 +75,7 @@ export default function Login({ providers }) {
             validationSchema={EmailSchema}
             onSubmit={({ email }) => {
               console.log('in');
-              signIn('email', { email, callbackUrl: '/dashboard' });
+              signIn('email', { email });
             }}
           >
             {({ handleSubmit }) => (
