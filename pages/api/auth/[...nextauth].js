@@ -2,6 +2,8 @@ import axios from 'axios';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
+import { sendVerificationRequest } from '../../../templates/emailVerification';
+
 const emailHost = 'smtp.sendgrid.net';
 const emailUsername = 'apikey'; // <- don't replace "apikey" it's the actual username
 const emailPassword = process.env.SENDGRID_API_KEY;
@@ -20,6 +22,7 @@ const options = {
     Providers.Email({
       server: `smtp://${emailUsername}:${emailPassword}@${emailHost}:587`,
       from: 'support@mailr.link',
+      sendVerificationRequest: sendVerificationRequest,
     }),
   ],
   database: process.env.DATABASE_URL,

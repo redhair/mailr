@@ -4,7 +4,7 @@ import { providers, signIn } from 'next-auth/client';
 import Button from '../components/Button';
 import { Container, Row, Column } from '../components/Grid';
 import { Heading, Text } from '../components/Typography';
-import Input from '../components/Input';
+import Input from '../components/InputField';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 

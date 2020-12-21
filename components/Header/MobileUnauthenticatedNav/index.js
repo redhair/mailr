@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import UnauthenticatedNav from '../UnauthenticatedNav';
 import MobileHeaderWrapper from './MobileHeaderWrapper';
 import Hamburger from './Hamburger';
@@ -19,6 +20,8 @@ MobileHeader.propTypes = {
 };
 
 function MobileHeader({ toggleMobileNav, mobileMenuOpen, signIn }) {
+  const router = useRouter();
+
   return (
     <MobileHeaderWrapper justify="space-between" align="center">
       <Link href="/">
@@ -34,10 +37,10 @@ function MobileHeader({ toggleMobileNav, mobileMenuOpen, signIn }) {
       </MobileWrapper>
       <MobileMenu open={mobileMenuOpen}>
         <MobileNav justify="center">
-          <Button level="link" onClick={signIn}>
+          <Button level="link" onClick={() => router.push('login')}>
             Login
           </Button>
-          <Button level="link" onClick={signIn}>
+          <Button level="link" onClick={() => router.push('login')}>
             Join
           </Button>
         </MobileNav>
