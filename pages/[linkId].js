@@ -115,9 +115,7 @@ function UserLandingPage({ linkId, user }) {
     );
   }
 
-  console.log({ user });
-
-  const canonical = `https://mailr.link/`;
+  const canonical = `https://mailr.link/${linkId}`;
   const metaTitle = `Join ${user.name}'s mailing list`;
   const metaImage = user.image;
   const metaImageAlt = `${user.name}'s avatar`;
@@ -182,13 +180,26 @@ function UserLandingPage({ linkId, user }) {
   );
 }
 
-export async function getServerSideProps(ctx) {
-  const { linkId } = ctx.query;
+export async function getStaticPaths() {
+  // Get all users
+  const res = await axios.get(`${process.env.NEXTAUTH_URL}/api/users`);
+  // Get the links we want to pre-render based on users
+  const paths = res.data.map((user) => ({
+    params: { linkId: user.link },
+  }));
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const { linkId } = params;
 
   try {
     let { data } = await axios.get(`${process.env.NEXTAUTH_URL}/api/users?link=${linkId}`);
-    // console.log({ data });
-    return { props: { linkId: data.link, user: data } };
+
+    return { props: { linkId: data.link, user: data }, revalidate: 1 };
   } catch (err) {
     console.error(err);
     return { props: { err } };
