@@ -73,14 +73,14 @@ export default function Client({ Component, pageProps, router }) {
                 nav={nav}
                 isFixed={true}
                 signIn={signin}
-                signOut={() => {
-                  signout();
+                signOut={async () => {
+                  await signout();
                   router.push('/');
                 }}
               />
             )}
             {router.pathname.startsWith('/dashboard') ? (
-              <DashboardInterface session={session}>
+              <DashboardInterface loading={loading} session={session}>
                 <Component {...pageProps} />
               </DashboardInterface>
             ) : (

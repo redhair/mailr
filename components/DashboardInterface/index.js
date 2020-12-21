@@ -30,17 +30,19 @@ const ProfileImage = styled.img`
   margin-right: 15px;
 `;
 
-const Interface = ({ session, children }) => {
+const Interface = ({ loading, session, children }) => {
   const { user, setUser } = useContext(UserContext);
   const { modalContent, showModal, setModalContent } = useContext(ModalContext);
 
   useEffect(() => {
-    axios
-      .get(`/api/users?email=${session.user.email}`)
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch(console.error);
+    if (session && session.user) {
+      axios
+        .get(`/api/users?email=${session.user.email}`)
+        .then((res) => {
+          setUser(res.data);
+        })
+        .catch(console.error);
+    }
   }, [session]);
 
   const nav = [
@@ -56,7 +58,7 @@ const Interface = ({ session, children }) => {
     // },
   ];
 
-  if (!session) {
+  if (!session && !loading) {
     return <AccessDenied />;
   }
 

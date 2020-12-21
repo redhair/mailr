@@ -125,7 +125,11 @@ function Home() {
           <p>
             <Text type="normal">
               Check out this statistic from{' '}
-              <a target="_blank" href="https://www.ofcom.org.uk/__data/assets/pdf_file/0026/27089/icmr_1.pdf#page=48">
+              <a
+                target="_blank"
+                rel="noopener"
+                href="https://www.ofcom.org.uk/__data/assets/pdf_file/0026/27089/icmr_1.pdf#page=48"
+              >
                 The 2017 International Communications Market Report
               </a>{' '}
               showing the first application international adult smartphone users accessed in the morning.
