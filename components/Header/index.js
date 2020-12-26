@@ -18,7 +18,7 @@ Header.propTypes = {
   signOut: PropTypes.func.isRequired,
 };
 
-export default function Header({ user, nav, isFixed, signIn, signOut }) {
+export default function Header({ user, nav, isFixed, signIn, loading, signOut }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { showModal, setModalContent } = useContext(ModalContext);
@@ -36,8 +36,16 @@ export default function Header({ user, nav, isFixed, signIn, signOut }) {
     <Wrapper isFixed={isFixed}>
       {!!user ? (
         <>
-          <DesktopHeader user={user} signOut={signOut} nav={nav} menuOpen={menuOpen} toggleOptions={toggleOptions} />
+          <DesktopHeader
+            loading={loading}
+            user={user}
+            signOut={signOut}
+            nav={nav}
+            menuOpen={menuOpen}
+            toggleOptions={toggleOptions}
+          />
           <MobileHeader
+            loading={loading}
             user={user}
             signOut={signOut}
             nav={nav}

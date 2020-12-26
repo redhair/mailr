@@ -18,7 +18,7 @@ DesktopHeader.propTypes = {
   signOut: PropTypes.func.isRequired,
 };
 
-function DesktopHeader({ user, nav, toggleOptions, menuOpen, signOut }) {
+function DesktopHeader({ user, loading, nav, toggleOptions, menuOpen, signOut }) {
   return (
     <DesktopHeaderWrapper>
       <Link href="/">
@@ -30,29 +30,33 @@ function DesktopHeader({ user, nav, toggleOptions, menuOpen, signOut }) {
       </Link>
 
       <Nav>
-        <AuthenticatedNav onClick={toggleOptions}>
-          <Text style={{ fontWeight: '900', color: 'black' }}>Hi, {!!user.name && user.name}!</Text>
-          <Avatar src={user.image} alt="Profile Avatar" />
+        {loading ? (
+          <div style={{ height: '40px' }}></div>
+        ) : (
+          <AuthenticatedNav onClick={toggleOptions}>
+            <Text style={{ fontWeight: '900', color: 'black' }}>Hi, {!!user.name && user.name}!</Text>
+            <Avatar src={user.image} alt="Profile Avatar" />
 
-          <Menu
-            open={menuOpen}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            {nav.length > 0 &&
-              nav.map((l) => {
-                return (
-                  <Link key={l.name} href={l.href}>
-                    <a onClick={toggleOptions}>{l.name}</a>
-                  </Link>
-                );
-              })}
-            <Button level="link" onClick={signOut}>
-              <Text style={{ color: '#334150' }}>Logout</Text>
-            </Button>
-          </Menu>
-        </AuthenticatedNav>
+            <Menu
+              open={menuOpen}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              {nav.length > 0 &&
+                nav.map((l) => {
+                  return (
+                    <Link key={l.name} href={l.href}>
+                      <a onClick={toggleOptions}>{l.name}</a>
+                    </Link>
+                  );
+                })}
+              <Button level="link" onClick={signOut}>
+                <Text style={{ color: '#334150' }}>Logout</Text>
+              </Button>
+            </Menu>
+          </AuthenticatedNav>
+        )}
       </Nav>
     </DesktopHeaderWrapper>
   );

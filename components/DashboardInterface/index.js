@@ -14,7 +14,7 @@ import { signin } from 'next-auth/client';
 import { UserProvider, UserContext } from '../UserProvider';
 const InterfaceContainer = styled(Container)`
   @media (min-width: ${(props) => props.theme.xs}) {
-    padding-left: 88px;
+    padding-left: 150px;
     margin-top: 100px;
   }
 
@@ -51,6 +51,16 @@ const Interface = ({ loading, session, children }) => {
       href: '/dashboard/subscribers',
       icon: <i className="fas fa-users"></i>,
     },
+    // {
+    //   name: 'Profile',
+    //   href: '/dashboard/profile',
+    //   icon: <i className="fas fa-user"></i>,
+    // },
+    // {
+    //   name: 'Analytics',
+    //   href: '/dashboard/analytics',
+    //   icon: <i className="fa fa-line-chart"></i>,
+    // },
     // {
     //   name: 'Settings',
     //   href: '/dashboard/settings',

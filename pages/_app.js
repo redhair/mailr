@@ -67,18 +67,18 @@ export default function Client({ Component, pageProps, router }) {
       <ThemeProvider theme={theme}>
         <ModalProvider>
           <>
-            {!loading && (
-              <Header
-                user={session ? session.user : null}
-                nav={nav}
-                isFixed={true}
-                signIn={signin}
-                signOut={async () => {
-                  await signout();
-                  router.push('/');
-                }}
-              />
-            )}
+            <Header
+              user={session ? session.user : null}
+              nav={nav}
+              isFixed={true}
+              signIn={signin}
+              loading={loading}
+              signOut={async () => {
+                await signout();
+                router.push('/');
+              }}
+            />
+
             {router.pathname.startsWith('/dashboard') ? (
               <DashboardInterface loading={loading} session={session}>
                 <Component {...pageProps} />
