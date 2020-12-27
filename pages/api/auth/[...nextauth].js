@@ -33,6 +33,12 @@ const options = {
     verifyRequest: '/verify-request', // (used for check email message)
     newUser: '/dashboard/subscribers?showLink=true', // If set, new users will be directed here on first sign in
   },
+  callbacks: {
+    redirect: async (url, baseUrl) => {
+      console.log('REDIRECT', url, baseUrl, url.startsWith(baseUrl));
+      return url.startsWith(baseUrl) ? Promise.resolve(url) : Promise.resolve(baseUrl);
+    },
+  },
   events: {
     signIn: async (message) => {
       /* on successful sign in */

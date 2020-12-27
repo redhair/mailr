@@ -51,7 +51,7 @@ function DesktopHeader({ user, loading, nav, toggleOptions, menuOpen, signOut })
                     </Link>
                   );
                 })}
-              <Button level="link" onClick={signOut}>
+              <Button level="link" onClick={() => signOut({ callbackUrl: '/' })}>
                 <Text style={{ color: '#334150' }}>Logout</Text>
               </Button>
             </Menu>

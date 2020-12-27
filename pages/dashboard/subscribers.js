@@ -40,6 +40,8 @@ function Subscribers(props) {
   const [page, setPage] = useState(0);
   const subscribersPerPage = 10;
 
+  useEffect(() => {});
+
   if (user) {
     return (
       <>
@@ -108,7 +110,11 @@ function Subscribers(props) {
       </>
     );
   } else {
-    return null;
+    return (
+      <div style={{ height: '80vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <LoadingBlock />
+      </div>
+    );
   }
 }
 

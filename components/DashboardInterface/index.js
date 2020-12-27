@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Modal, ModalContext } from '../ModalProvider';
 import { Container } from '../Grid';
 import { Text } from '../Typography';
@@ -33,6 +34,15 @@ const ProfileImage = styled.img`
 const Interface = ({ loading, session, children }) => {
   const { user, setUser } = useContext(UserContext);
   const { modalContent, showModal, setModalContent } = useContext(ModalContext);
+  const router = useRouter();
+  const showLink = router.query.showLink;
+
+  useEffect(() => {
+    if (showLink && user) {
+      setModalContent(<LinkPopup link={user.link} />);
+      showModal();
+    }
+  }, [showLink, user]);
 
   useEffect(() => {
     if (session && session.user) {

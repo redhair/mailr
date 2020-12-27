@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { providers, signIn } from 'next-auth/client';
 import Button from '../components/Button';
 import { Container, Row, Column } from '../components/Grid';
 import { Heading, Text } from '../components/Typography';
 import Input from '../components/InputField';
+import LoadingBlock from '../components/LoadingBlock';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
@@ -53,7 +54,9 @@ const EmailSchema = Yup.object().shape({
   email: Yup.string().email().required('Required'),
 });
 
-export default function Login({ providers }) {
+export default function Login({ providers, baseUrl }) {
+  const [loading, setLoading] = useState(false);
+
   function getIcon(icon) {
     if (icon === 'google') {
       return <i style={{ paddingRight: '12px' }} className="fab fa-google"></i>;
@@ -74,8 +77,8 @@ export default function Login({ providers }) {
             initialValues={{}}
             validationSchema={EmailSchema}
             onSubmit={({ email }) => {
-              console.log('in');
-              signIn('email', { email });
+              setLoading(true);
+              signIn('email', { email, callbackUrl: `${baseUrl}/dashboard/subscribers` });
             }}
           >
             {({ handleSubmit }) => (
@@ -87,8 +90,8 @@ export default function Login({ providers }) {
               >
                 <Input placeholder="email@example.com" label="Email" hideLabel type="text" name="email" />
 
-                <Button level="primary" type="submit">
-                  Sign in with email
+                <Button level="primary" type="submit" disabled={loading}>
+                  {loading ? <LoadingBlock quiet small color="white" /> : 'Sign in with email'}
                 </Button>
               </FormWrapper>
             )}
@@ -96,15 +99,21 @@ export default function Login({ providers }) {
           <Divider>
             <Text bold>OR</Text>
           </Divider>
-          {Object.values(providers).map((provider, i) => (
-            <>
-              {provider.id !== 'email' && (
-                <Button key={i} level="outline" onClick={() => signIn(provider.id)}>
+          {Object.values(providers).map((provider, i) => {
+            if (provider.id !== 'email') {
+              return (
+                <Button
+                  key={i}
+                  level="outline"
+                  onClick={() => signIn(provider.id, { callbackUrl: `${baseUrl}/dashboard/subscribers` })}
+                >
                   {getIcon(provider.id)}&nbsp;Sign in with {provider.name}
                 </Button>
-              )}
-            </>
-          ))}
+              );
+            }
+
+            return null;
+          })}
         </Column>
       </Row>
     </Wrapper>
@@ -114,7 +123,7 @@ export default function Login({ providers }) {
 export async function getStaticProps(ctx) {
   try {
     return {
-      props: { providers: await providers(ctx) },
+      props: { baseUrl: process.env.NEXTAUTH_URL, providers: await providers(ctx) },
     };
   } catch (err) {
     console.error('Login page error', err);
