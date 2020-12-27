@@ -50,7 +50,6 @@ const ErrorMessage = styled(Heading)`
 `;
 
 const Image = styled.img`
-  width: 200px;
   margin-bottom: 36px;
   border-radius: 100%;
 
@@ -59,7 +58,7 @@ const Image = styled.img`
   }
 
   @media (min-width: ${(props) => props.theme.sm}) {
-    width: 200px;
+    width: 175px;
   }
 `;
 
@@ -153,7 +152,7 @@ function UserLandingPage({ linkId, user }) {
         {!alert && !!user && (
           <>
             <Image src={user.image} />
-            <Heading level={3}>Enter Your Information To Join {user.name}'s mailing list.</Heading>
+            <Heading level={3}>Join {user.name}'s mailing list.</Heading>
             <Formik initialValues={{}} validationSchema={EmailSchema} onSubmit={onSubmit}>
               {() => (
                 <Form>
@@ -190,7 +189,7 @@ export async function getStaticPaths() {
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: true };
+  return { paths, fallback: 'blocking' };
 }
 
 export async function getStaticProps({ params }) {

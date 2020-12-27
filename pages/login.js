@@ -98,9 +98,7 @@ export default function Login({ providers }) {
           </Divider>
           {Object.values(providers).map((provider, i) => (
             <>
-              {provider.id === 'email' ? (
-                <></>
-              ) : (
+              {provider.id !== 'email' && (
                 <Button key={i} level="outline" onClick={() => signIn(provider.id)}>
                   {getIcon(provider.id)}&nbsp;Sign in with {provider.name}
                 </Button>
@@ -113,7 +111,7 @@ export default function Login({ providers }) {
   );
 }
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps(ctx) {
   try {
     return {
       props: { providers: await providers(ctx) },

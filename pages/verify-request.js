@@ -24,7 +24,7 @@ const Wrapper = styled(Container)`
   }
 `;
 
-export default function VerifyRequest({ providers }) {
+export default function VerifyRequest({ providers } = {}) {
   return (
     <Wrapper style={{ maxWidth: '400px', textAlign: 'center', width: '100%', margin: '150px auto 100px auto' }}>
       <Row align="center" justify="center">
