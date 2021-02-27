@@ -61,10 +61,10 @@ function Plan(props) {
         <Card>
           <Row justify="space-between">
             <Heading style={{ margin: 0 }} level={2}>
-              Plan: {user.plan}
+              Plan: {!!user && user.plan}
             </Heading>
             <Heading style={{ margin: 0 }} level={2}>
-              {user.subscribers.length} / 100 Subscribers
+              {!!user && user.subscribers.length} / 100 Subscribers
             </Heading>
           </Row>
         </Card>
