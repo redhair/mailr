@@ -4,19 +4,36 @@ import { getSession } from 'next-auth/client';
 
 export default mongoMiddleware(async (req, res, connection, models) => {
   const {
-    query: { link, email },
+    query: { link, email, action },
     body,
     method,
   } = req;
 
   const session = await getSession({ req });
 
+  function checkUniqueLink(proposedLink) {
+    return models.User.findOne({ link: proposedLink })
+      .then(function (account) {
+        if (account) {
+          console.log('Username not unique: ' + proposedLink);
+
+          return false;
+        }
+
+        console.log('Found unique link: ' + proposedLink);
+        return true;
+      })
+      .catch(function (err) {
+        console.error(err);
+        throw err;
+      });
+  }
+
   apiHandler(res, method, {
     GET: (response) => {
-      console.log({ link });
+      // console.log({ link });
       if (link) {
         models.User.findOne({ link }, 'name image link', (error, user) => {
-          console.log({ error, user });
           if (error) {
             response.status(500).json({ error });
             connection.close();
@@ -41,6 +58,7 @@ export default mongoMiddleware(async (req, res, connection, models) => {
           connection.close();
         }
       } else {
+        // TODO delete this route. Admins only
         models.User.find({}, (error, user) => {
           if (error) {
             response.status(500).json({ error });
@@ -52,20 +70,27 @@ export default mongoMiddleware(async (req, res, connection, models) => {
         });
       }
     },
-    POST: (response) => {
-      function generateLink() {
-        return [...Array(6)].map((i) => (~~(Math.random() * 36)).toString(36)).join('');
-      }
-
-      models.User.create({ ...body, link: generateLink() }, (error, user) => {
-        if (error) {
-          response.status(500).json({ error });
-          connection.close();
+    POST: async (response) => {
+      if (action === 'checkLink') {
+        console.log('CHECKING UNIQUE LINK');
+        let isUnique = await checkUniqueLink(body.link);
+        console.log({ res });
+        if (isUnique) {
+          return response.status(200).json({ message: 'Link is unique' });
         } else {
-          response.status(200).json(user);
-          connection.close();
+          return response.status(500).json({ error: 'This link is not unique' });
         }
-      });
+      } else {
+        models.User.create({ ...body }, (error, user) => {
+          if (error) {
+            response.status(500).json({ error });
+            connection.close();
+          } else {
+            response.status(200).json(user);
+            connection.close();
+          }
+        });
+      }
     },
   });
 });

@@ -14,12 +14,11 @@ const Wrapper = styled(Container)`
   & a {
     padding: ${(props) => props.theme.buttonPadding};
     text-decoration: none;
-    color: ${(props) => props.theme.primaryColor};
 
     &:hover {
-      background: #eceef4;
+      background: ${(props) => props.theme.backgroundColor};
       border-radius: 50px;
-      transition: background 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
   }
 `;

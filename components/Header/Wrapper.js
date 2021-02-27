@@ -15,18 +15,22 @@ const Wrapper = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 36px;
-  height: 80px;
+  padding: 0 16px;
+  height: 52px;
+  margin-bottom: 16px;
+  z-index: 100;
+  /* position: relative; */
   box-shadow: '0px 16px 7px -10px rgba(200, 203, 216, 0.26)';
-  border-bottom: 2px solid #eceef4;
+  /* border-bottom: 2px solid #eceef4; */
   align-items: center;
 
   @media (min-width: ${(props) => props.theme.xs}) {
-    background: white;
+    background: ${(props) => props.theme.backgroundColor};
   }
 
   @media (min-width: ${(props) => props.theme.lg}) {
-    background: white;
+    background: ${(props) => props.theme.backgroundColor};
+    padding: 16px 16px;
   }
 `;
 

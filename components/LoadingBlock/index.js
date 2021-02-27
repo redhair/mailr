@@ -4,15 +4,7 @@ import styled from 'styled-components';
 import { Heading } from '../Typography';
 
 function randomLoadingMessage() {
-  let lines = [
-    'You might want to get a cup of coffee...',
-    'Shovelling coal into the server...',
-    'Programming the flux capacitor',
-    'Please wait and enjoy the elevator music.',
-    "At least you're not on hold.",
-    'Please wait while the satellite moves into position.',
-    'Please wait, we are testing your patience.'
-  ];
+  let lines = ['Loading...'];
 
   return lines[Math.round(Math.random() * (lines.length - 1))];
 }
@@ -31,10 +23,10 @@ const Circles = styled.div`
   text-align: center;
 
   & > div {
-    width: ${props => (props.small ? '8px' : '16px')};
-    height: ${props => (props.small ? '8px' : '16px')};
-    margin: ${props => (props.small ? '0 4px' : '0 8px')};
-    background-color: ${props => (props.color ? props.color : '#333')};
+    width: ${(props) => (props.small ? '8px' : '16px')};
+    height: ${(props) => (props.small ? '8px' : '16px')};
+    margin: ${(props) => (props.small ? '0 4px' : '0 8px')};
+    background-color: ${(props) => (props.color ? props.color : props.theme.textColor)};
 
     border-radius: 100%;
     display: inline-block;
@@ -79,7 +71,7 @@ const Circles = styled.div`
 
 const Message = styled(Heading)`
   margin-top: 20px;
-  color: ${props => (props.color ? props.color : '#333')};
+  color: ${(props) => (props.color ? props.color : props.theme.textColor)};
 `;
 
 const LoadingBlock = ({ quiet, color, small, ...rest }) => (
@@ -90,7 +82,7 @@ const LoadingBlock = ({ quiet, color, small, ...rest }) => (
       <div className="circle3" />
     </Circles>
     {!quiet && (
-      <Message level={5} color={color}>
+      <Message level={3} color={color}>
         {randomLoadingMessage()}
       </Message>
     )}
@@ -100,7 +92,7 @@ const LoadingBlock = ({ quiet, color, small, ...rest }) => (
 LoadingBlock.propTypes = {
   quiet: PropTypes.bool,
   color: PropTypes.string,
-  small: PropTypes.bool
+  small: PropTypes.bool,
 };
 
 export default LoadingBlock;

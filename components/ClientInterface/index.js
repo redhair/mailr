@@ -5,12 +5,14 @@ import { Container } from '../Grid';
 import Footer from '../Footer';
 
 const InterfaceContainer = styled(Container)`
+  background: ${(props) => props.theme.backgroundColor};
+
   @media (min-width: ${(props) => props.theme.xs}) {
-    margin-top: 100px;
+    /* margin-top: 100px; */
   }
 
   @media (min-width: ${(props) => props.theme.md}) {
-    margin-top: 125px;
+    margin-top: 50px;
   }
 `;
 

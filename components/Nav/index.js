@@ -7,8 +7,8 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: white;
-  border-right: 1px solid #ccc;
+  background: ${(props) => props.theme.backgroundColor};
+  /* border-bottom: 1px solid #eceef4; */
   justify-items: flex-start;
 
   & a {
@@ -19,20 +19,41 @@ const Nav = styled.nav`
   }
 
   @media (min-width: ${(props) => props.theme.xs}) {
-    padding: 20px 25px;
-    width: auto;
+    padding: 0px;
+    width: 100%;
+    top: 160px;
+    left: 0;
+    right: 0;
+    height: auto;
+    display: flex;
+    flex-direction: row;
 
-    & span {
+    & button,
+    & i {
       display: none;
+    }
+
+    & a {
+      color: #21242a;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 10px;
     }
   }
 
   @media (min-width: ${(props) => props.theme.md}) {
-    padding: 20px 50px;
-    width: 150px;
+    /* padding: 20px 50px; */
+    /* width: 150px; */
 
     & span {
       display: inline;
+    }
+
+    & a {
+      color: #21242a;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 20px;
     }
   }
 `;

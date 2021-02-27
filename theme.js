@@ -13,11 +13,10 @@ const theme = {
   headerFont: "'Rubik', sans-serif",
 
   fontSize: '1.1rem',
+  textColor: '#334150',
   borderRadius: '50px',
   backgroundColor: '#ffffff',
   backgroundTextColor: '#334150',
-  backgroundColorDark: '#040d14',
-  backgroundTextColorDark: '#6b7682',
 
   columns: 12,
   /** phone range */
@@ -105,7 +104,7 @@ const theme = {
   inputRangeTrackBackground: `#e1e7eb`,
   inputRangeTrackHeight: '0.3rem',
   inputRangeTrackTransition: 'left 0.1s cubic-bezier(0.3, 0, 0.45, 1), width 0.1s cubic-bezier(0.3, 0, 0.45, 1)',
-  inputRangeTrackActiveBackground: `#57c59b`,
+  inputRangeTrackActiveBackground: `#0070f3`,
   inputRangeTrackDisabledBackground: `#e1e7eb`,
 };
 

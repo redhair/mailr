@@ -3,34 +3,71 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Header1 = styled.h1`
-  font-size: 48px;
   font-family: ${(props) => props.theme.headerFont};
   margin: 0;
   margin-bottom: 10px;
+  color: ${(props) => props.theme.textColor};
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    font-size: 24px;
+  }
+
+  @media (min-width: ${(props) => props.theme.sm}) {
+    font-size: 48px;
+  }
 `;
 const Header2 = styled.h2`
-  font-size: 36px;
   font-family: ${(props) => props.theme.headerFont};
   margin: 0;
   margin-bottom: 10px;
+  color: ${(props) => props.theme.textColor};
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    font-size: 18px;
+  }
+
+  @media (min-width: ${(props) => props.theme.sm}) {
+    font-size: 36px;
+  }
 `;
 const Header3 = styled.h3`
-  font-size: 28px;
   font-family: ${(props) => props.theme.headerFont};
   margin: 0;
   margin-bottom: 10px;
+  color: ${(props) => props.theme.textColor};
+  @media (min-width: ${(props) => props.theme.xs}) {
+    font-size: 14px;
+  }
+
+  @media (min-width: ${(props) => props.theme.sm}) {
+    font-size: 28px;
+  }
 `;
 const Header4 = styled.h4`
-  font-size: 22px;
   font-family: ${(props) => props.theme.headerFont};
   margin: 0;
   margin-bottom: 5px;
+  color: ${(props) => props.theme.textColor};
+  @media (min-width: ${(props) => props.theme.xs}) {
+    font-size: 11px;
+  }
+
+  @media (min-width: ${(props) => props.theme.sm}) {
+    font-size: 22px;
+  }
 `;
 const Header5 = styled.h5`
-  font-size: 16px;
   font-family: ${(props) => props.theme.headerFont};
   margin: 0;
   margin-bottom: 5px;
+  color: ${(props) => props.theme.textColor};
+  @media (min-width: ${(props) => props.theme.xs}) {
+    font-size: 8px;
+  }
+
+  @media (min-width: ${(props) => props.theme.sm}) {
+    font-size: 16px;
+  }
 `;
 
 const BodyText = styled.span`
@@ -38,6 +75,7 @@ const BodyText = styled.span`
   font-family: ${(props) => props.theme.bodyFont};
   font-size: ${(props) => (props.type === 'normal' ? '20px' : '16px')};
   line-height: ${(props) => (props.type === 'normal' ? '36px' : '24px')};
+  color: ${(props) => props.theme.textColor};
 `;
 
 function Heading({ level, children, ...rest }) {

@@ -1,5 +1,6 @@
 import App from 'next/app';
 import React from 'react';
+import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 import { ModalProvider } from '../components/ModalProvider';
 
@@ -14,7 +15,8 @@ import Header from '../components/Header';
 import { UserProvider } from '../components/UserProvider';
 import { setOptions, getSession, Provider, useSession, signin, signout } from 'next-auth/client';
 
-import theme from '../theme';
+// import theme from '../theme';
+import theme from '../theme_dark';
 import '../styles.css';
 import 'react-responsive-modal/styles.css';
 
@@ -45,39 +47,29 @@ export default function Client({ Component, pageProps, router }) {
   // }
   const [session, loading] = useSession();
 
-  const nav = [
-    // {
-    //   name: 'Dashboard',
-    //   href: '/dashboard',
-    //   icon: <i className="fas fa-graph"></i>,
-    // },
-    {
-      name: 'Subscribers',
-      href: '/dashboard/subscribers',
-      icon: <i className="fas fa-users"></i>,
-    },
-    // {
-    //   name: 'Settings',
-    //   href: '/dashboard/settings',
-    //   icon: <i className="fas fa-cog"></i>,
-    // },
-  ];
+  console.log({ session });
+
+  const Root = styled.div`
+    background: ${(props) => props.theme.backgroundBodyColor};
+  `;
+
   return (
     <UserProvider>
       <ThemeProvider theme={theme}>
         <ModalProvider>
-          <>
-            <Header
-              user={session ? session.user : null}
-              nav={nav}
-              isFixed={true}
-              signIn={signin}
-              loading={loading}
-              signOut={async () => {
-                await signout();
-                router.push('/');
-              }}
-            />
+          <Root>
+            {!pageProps.hideHeader && (
+              <Header
+                user={session ? session.user : null}
+                isFixed={false}
+                signIn={signin}
+                loading={loading}
+                signOut={async () => {
+                  await signout();
+                  router.push('/');
+                }}
+              />
+            )}
 
             {router.pathname.startsWith('/dashboard') ? (
               <DashboardInterface loading={loading} session={session}>
@@ -88,7 +80,7 @@ export default function Client({ Component, pageProps, router }) {
                 <Component {...pageProps} />
               </ClientInterface>
             )}
-          </>
+          </Root>
         </ModalProvider>
       </ThemeProvider>
     </UserProvider>

@@ -28,6 +28,7 @@ const Label = styled.label`
   font-size: 14px;
   font-weight: 700;
   font-family: ${(props) => props.theme.bodyFont};
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Input = styled(Field)`
@@ -37,7 +38,7 @@ const Input = styled(Field)`
   margin: 5px 0;
   box-sizing: border-box;
   border-radius: ${(props) => props.theme.inputBorderRadius};
-  background-color: white; /*rgb(241, 244, 246);*/
+  background: ${(props) => props.theme.backgroundColor};
   border: 1px solid #d2dce0;
   width: 100%;
   outline: 0;
@@ -45,6 +46,7 @@ const Input = styled(Field)`
   font-size: 16px;
   font-weight: 700;
   font-family: ${(props) => props.theme.bodyFont};
+  color: ${(props) => props.theme.textColor};
 
   &::placeholder {
     color: #747e90;

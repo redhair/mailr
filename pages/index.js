@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import LoadingBlock from '../components/LoadingBlock';
 import { Heading, Text } from '../components/Typography';
 import { Row, Column } from '../components/Grid';
@@ -7,6 +8,7 @@ import Link from 'next/link';
 import { useSession, signin, signout } from 'next-auth/client';
 
 function Home() {
+  const router = useRouter();
   const canonical = `https://mailr.link/`;
   const metaTitle = 'mailr';
   const metaImage = '/logo_transparent.png';
@@ -41,7 +43,7 @@ function Home() {
         <meta name="twitter:image" content={metaImage}></meta>
         <meta name="twitter:image:alt" content={metaImageAlt}></meta>
       </Head>
-      <Row justify="center" style={{ marginBottom: '100px', marginTop: '50px' }}>
+      <Row justify="center" style={{ marginBottom: '100px' }}>
         <style jsx>{`
           blockquote {
             background: #f9f9f9;
@@ -63,29 +65,43 @@ function Home() {
         `}</style>
 
         <Column xs={12} sm={7} align="flex-start">
+          <Heading level={1}>The #1 way to build a mailing list without a website</Heading>
+          <Button
+            onClick={() => {
+              router.push('/login');
+            }}
+            level="primary"
+          >
+            <i
+              className="fas fa-link"
+              style={{
+                marginRight: '8px',
+              }}
+            ></i>
+            Get Your Free Link Now
+          </Button>
+
           <p>
-            <Text type="normal">
-              Hey you — <b>yes you!</b>
-            </Text>
+            <Text type="normal">Let’s talk about email marketing.</Text>
           </p>
           <p>
-            <Text type="normal">Let’s talk about newsletters.</Text>
-          </p>
-          <p>
             <Text type="normal">
-              Personal websites have been outdated for a while now and unfortunately email newsletters have gone with
-              them. Sites like Instagram, YouTube, TikTok, and Twitter have taken over and are here to stay. This shift
-              in the climate of the internet has burried one of the best kept internet marketing secrets —{' '}
-              <b>The Newsletter</b>.
+              Personal websites are dead and unfortunately email marketing has gone with them. Sites like Instagram,
+              YouTube, TikTok, and Twitter have taken over and are here to stay. This shift in the climate of the
+              internet has burried one of the best kept internet money-making secrets — <b>The Mailing List</b>.
             </Text>
           </p>
 
           <p>
             <Text type="normal">
-              As a fan, it feels great to get a newsletter you enjoy. <b>It feels incredibly personal</b>. But most
-              influencers are ignoring email as a marketing channel. <em>Why?</em> Because mailing lists have always
-              been astonishingly hard to build.
+              As a fan, it feels great to get an email from your favorite influencer.{' '}
+              <b>It feels incredibly personal</b>. But most influencers are ignoring email as a marketing channel.{' '}
+              <em>Why?</em> Because mailing lists have always been notoriously hard to build.
             </Text>
+          </p>
+
+          <p>
+            <Text>First you need a landing page, then you need a lead magnet, then you need blah blah blah...</Text>
           </p>
           <p>
             <Text type="normal">
@@ -97,19 +113,25 @@ function Home() {
 
           <p>
             <Text type="normal">
-              <b>So how does it work?</b>
+              <b>So how DOES it work?</b>
             </Text>
           </p>
           <p>
             <Text type="normal">
-              All you have to do is sign up and <b>BOOM</b>. You’re done. We give you a link that you paste your link in
-              your bio, description, or anywhere you want your fans to sign up. We’ll collect your subscribers here, and
-              you can export them at any time to any of your favorite email marketing services.
+              All you have to do is sign up and <b>BOOM</b>. You’re done. We give you a link that you put in your bio,
+              description, or anywhere you want your fans to sign up. We’ll collect your subscribers here, and you can
+              export them at any time to any of your favorite email marketing services.
             </Text>
           </p>
           <Column xs={12} align="center">
             <Button level="primary" onClick={signin}>
-              Get My Link
+              <i
+                className="fas fa-link"
+                style={{
+                  marginRight: '8px',
+                }}
+              ></i>
+              Get Your Link
             </Button>
           </Column>
           {/* <Row>
@@ -132,7 +154,7 @@ function Home() {
               >
                 The 2017 International Communications Market Report
               </a>{' '}
-              showing the first application international adult smartphone users accessed in the morning.
+              showing the first app people opened in the morning:
             </Text>
           </p>
           <blockquote>
@@ -152,7 +174,7 @@ function Home() {
           </p>
           <p>
             <Text type="normal">
-              At Mailr, we know how hard it is to get off the ground as an influencer. That's why we will always have a
+              At Mailr, we know how hard it is to monitize your brand as an influencer. That's why we will always have a
               generous free tier for people just getting started with their audience. If you haven't yet, go check out
               all the free features you get on our{' '}
               <Link href="/pricing">

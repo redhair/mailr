@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Row } from '../../Grid';
 
 const MobileHeaderWrapper = styled(Row)`
-  z-index: 100;
+  z-index: 9;
 
   a {
     text-decoration: none;

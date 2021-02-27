@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Heading, Text } from '../components/Typography';
 import { Row, Column, Container } from '../components/Grid';
 import Badge from '../components/Badge';
+import Button from '../components/Button';
+import Range from '../components/Range';
 
 const Check = styled.i`
   color: ${(props) => props.theme.primaryColor};
@@ -42,7 +44,7 @@ const PricingCard = styled.div`
   padding: 40px;
   margin-bottom: 25px;
   position: relative;
-  background: white;
+  background: ${(props) => props.theme.backgroundColor};
   /* width: 100%; */
   min-width: 100%;
   border-radius: 8px;
@@ -59,6 +61,8 @@ const PricingCard = styled.div`
 `;
 
 export default function Pricing() {
+  const [subscribers, setSubscribers] = useState(3000);
+
   return (
     <>
       <Row justify="center">
@@ -73,9 +77,11 @@ export default function Pricing() {
           </p>
         </Column>
       </Row>
-      <Row align="flex-start">
+      <Row align="flex-start" style={{ marginTop: '75px' }}>
         <Container>
-          <Heading level={2}>Features and pricing</Heading>
+          <Heading level={2} style={{ marginBottom: '36px' }}>
+            Features and benefits
+          </Heading>
           {/* <Button level="outline">Monthly</Button>
           <Button level="outline">Yearly</Button> */}
           <Row align="flex-start" canWrap>
@@ -83,7 +89,7 @@ export default function Pricing() {
               <PricingCard>
                 <Column>
                   <Row canWrap>
-                    <Heading level={5} style={{ marginRight: '6px' }}>
+                    <Heading level={3} style={{ marginRight: '6px' }}>
                       Free
                     </Heading>
                   </Row>
@@ -91,7 +97,7 @@ export default function Pricing() {
                     <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
                       $0.00
                     </Heading>
-                    <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
+                    {/* <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text> */}
                   </Row>
                 </Column>
                 <ul>
@@ -111,6 +117,9 @@ export default function Pricing() {
                     <Check className="far fa-check-circle"></Check>
                     <Text>&nbsp;Access to real time growth metrics</Text>
                   </li>
+                  <li>
+                    <Button level="primary">Create account</Button>
+                  </li>
                 </ul>
               </PricingCard>
             </PricingColumn>
@@ -118,13 +127,13 @@ export default function Pricing() {
               <PricingCard>
                 <Column>
                   <Row canWrap>
-                    <Heading level={5} style={{ marginRight: '6px' }}>
+                    <Heading level={3} style={{ marginRight: '6px' }}>
                       Influencer
                     </Heading>
                   </Row>
                   <Row canWrap>
                     <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
-                      $99.99
+                      $9.99
                     </Heading>
                     <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
                   </Row>
@@ -132,34 +141,26 @@ export default function Pricing() {
                 <ul>
                   <li>
                     <Check className="far fa-check-circle"></Check>
-                    <Text>
-                      &nbsp;Bleeding edge AI powered digital marketing that connects thousands of students to landlords
-                      every month
-                    </Text>
+                    <Text>&nbsp;Custom mailr link</Text>
                   </li>
                   <li>
                     <Check className="far fa-check-circle"></Check>
-                    <Text>&nbsp;Ability to list on our high performance student-facing site</Text>
+                    <Text>&nbsp;1000 Subscriber limit</Text>
                   </li>
                   <li>
                     <Check className="far fa-check-circle"></Check>
-                    <Text>&nbsp;State of the art, aggressively audited SEO best practices</Text>
+                    <Text>&nbsp;Unlimited free exports</Text>
                   </li>
                   <li>
                     <Check className="far fa-check-circle"></Check>
-                    <Text>&nbsp;Access to Premium Listings</Text>
-                  </li>
-                  <li>
-                    <Check className="far fa-check-circle"></Check>
-                    <Text>&nbsp;Call and email metrics</Text>
-                  </li>
-                  <li>
-                    <Check className="far fa-check-circle"></Check>
-                    <Text>&nbsp;Ability to recieve inqueries from our pool of qualified student leads</Text>
+                    <Text>&nbsp;Access to advanced real time growth analytics</Text>
                   </li>
                   <li>
                     <Check className="far fa-check-circle"></Check>
                     <Text>&nbsp;Zero risk refund policy</Text>
+                  </li>
+                  <li>
+                    <Button level="primary">Get Started</Button>
                   </li>
                 </ul>
               </PricingCard>
@@ -168,15 +169,15 @@ export default function Pricing() {
               <PricingCard>
                 <Column>
                   <Row canWrap>
-                    <Heading level={5} style={{ marginRight: '6px' }}>
+                    <Heading level={3} style={{ marginRight: '6px' }}>
                       Thought Leader
                     </Heading>
                   </Row>
                   <Row canWrap>
                     <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
-                      $199.99
+                      $19.99
                     </Heading>
-                    <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month*</Text>
+                    <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
                   </Row>
                 </Column>{' '}
                 <ul>
@@ -229,10 +230,123 @@ export default function Pricing() {
                     <Check className="far fa-check-circle"></Check>
                     <Text>&nbsp;Zero risk refund policy</Text>
                   </li>
+                  <li>
+                    <Button level="primary">Get Started</Button>
+                  </li>
                 </ul>
               </PricingCard>
             </PricingColumn>
           </Row>
+        </Container>
+      </Row>
+      <Row align="flex-start" style={{ marginTop: '75px' }}>
+        <Container>
+          <Heading level={2} style={{ marginBottom: '36px' }}>
+            Estimate your cost
+          </Heading>
+          <Text>
+            A Subscriber is an email address that is subscribed to your mailing list. Choose exactly how many
+            subscribers you wish to have and don't pay for what you don't need.
+          </Text>
+          <PricingCard style={{ marginTop: '50px' }}>
+            <Row style={{ height: 'auto' }} canWrap>
+              <Column xs={12} sm={8} style={{ height: 'auto' }}>
+                <Range
+                  withSingleValue
+                  step={1000}
+                  name="subscribers"
+                  defaultValue={3000}
+                  items={[1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]}
+                  onRangeChange={(value) => {
+                    setSubscribers(value);
+                  }}
+                />
+              </Column>
+              <Column xs={12} sm={4}>
+                <Heading level={3} style={{ marginBottom: '0px' }}>
+                  {subscribers}
+                </Heading>
+                <Text>Subscribers</Text>
+              </Column>
+            </Row>
+            <Row align="flex-start" style={{ marginTop: '50px' }} canWrap>
+              <PricingColumn xs={12} sm={12} md={6}>
+                <PricingCard>
+                  <Column>
+                    <Row canWrap>
+                      <Heading level={3} style={{ marginRight: '6px' }}>
+                        Influencer
+                      </Heading>
+                    </Row>
+                    <Row canWrap>
+                      <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
+                        ${(9.99 + parseInt(subscribers) * 0.01 - 10).toFixed(2)}
+                      </Heading>
+                      <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
+                    </Row>
+                  </Column>
+                  <ul>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Custom mailr link</Text>
+                    </li>
+
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Unlimited free exports</Text>
+                    </li>
+
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Zero risk refund policy</Text>
+                    </li>
+                    <li>
+                      <Button level="primary">Get Started</Button>
+                    </li>
+                  </ul>
+                </PricingCard>
+              </PricingColumn>
+              <PricingColumn xs={12} sm={12} md={6}>
+                <PricingCard>
+                  <Column>
+                    <Row canWrap>
+                      <Heading level={3} style={{ marginRight: '6px' }}>
+                        Thought Leader
+                      </Heading>
+                    </Row>
+                    <Row canWrap>
+                      <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
+                        ${(19.99 + parseInt(subscribers) * 0.01 - 10).toFixed(2)}
+                      </Heading>
+                      <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
+                    </Row>
+                  </Column>
+                  <ul>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Custom mailr link</Text>
+                    </li>
+
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Unlimited free exports</Text>
+                    </li>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Access to advanced real time growth analytics</Text>
+                    </li>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Zero risk refund policy</Text>
+                    </li>
+                    <li>
+                      <Button level="primary">Get Started</Button>
+                    </li>
+                  </ul>
+                </PricingCard>
+              </PricingColumn>
+            </Row>
+          </PricingCard>
         </Container>
       </Row>
     </>

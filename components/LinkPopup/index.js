@@ -14,10 +14,14 @@ const CopyButton = styled(Button)`
   position: relative;
   outline: 0;
   border-color: #eee;
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    font-size: 12px;
+  }
 `;
 
 const CopyInput = styled.input`
-  background: #eee;
+  background: ${(props) => props.theme.backgroundColor};
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   padding: 15px 30px;
@@ -26,6 +30,10 @@ const CopyInput = styled.input`
   width: 100%;
   font-family: ${(props) => props.theme.bodyFont};
   font-size: 24px;
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    font-size: 12px;
+  }
 `;
 
 const CopyText = styled(Text)`

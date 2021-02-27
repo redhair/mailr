@@ -16,7 +16,7 @@ const FooterWrapper = styled.footer`
   padding: 50px 20px;
   a {
     text-decoration: none;
-    color: black;
+    color: ${(props) => props.theme.textColor};
     transition: all 120ms ease-in-out;
 
     &:hover {

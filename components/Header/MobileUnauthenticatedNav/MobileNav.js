@@ -3,6 +3,7 @@ import { Row } from '../../Grid';
 
 const MobileNav = styled(Row)`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
 
   & a,
@@ -10,22 +11,22 @@ const MobileNav = styled(Row)`
     width: auto;
     white-space: nowrap;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     align-self: stretch;
-    justify-content: center;
-    color: #334150;
+    justify-content: flex-start;
+    color: ${(props) => props.theme.textColor};
     font-family: 'Rubik', sans-serif;
     font-weight: 900;
     margin: 16px 10px !important;
     border-radius: 0;
     padding: 0;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font-size: 18px;
     text-decoration: none;
     border-bottom: 4px solid transparent;
 
     &:hover {
-      border-color: ${(props) => props.theme.secondaryColor};
+      color: ${(props) => props.theme.secondaryColor};
     }
   }
 `;

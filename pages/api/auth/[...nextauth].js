@@ -1,7 +1,6 @@
 import axios from 'axios';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-
 import { sendVerificationRequest } from '../../../templates/emailVerification';
 
 const emailHost = 'smtp.sendgrid.net';
@@ -35,7 +34,7 @@ const options = {
   },
   callbacks: {
     redirect: async (url, baseUrl) => {
-      console.log('REDIRECT', url, baseUrl, url.startsWith(baseUrl));
+      // console.log('REDIRECT', url, baseUrl, url.startsWith(baseUrl));
       return url.startsWith(baseUrl) ? Promise.resolve(url) : Promise.resolve(baseUrl);
     },
   },
@@ -56,12 +55,12 @@ const options = {
       console.log('USER MONGO ID: ', message.id);
 
       //update user
-      try {
-        let res = await axios.post(`${process.env.NEXTAUTH_URL}/api/users/${message.id}?action=createLink`);
-        console.log('Link gen response: ', { res });
-      } catch (err) {
-        console.error('Link gen error: ', { err });
-      }
+      // try {
+      //   let res = await axios.post(`${process.env.NEXTAUTH_URL}/api/users/${message.id}?action=createLink`);
+      //   console.log('Link gen response: ', { res });
+      // } catch (err) {
+      //   console.error('Link gen error: ', { err });
+      // }
     },
     linkAccount: async (message) => {
       /* account linked to a user */

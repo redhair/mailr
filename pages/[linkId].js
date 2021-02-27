@@ -23,17 +23,16 @@ const Wrapper = styled.div`
   height: 73vh;
   margin: auto;
   margin-bottom: 75px;
-  margin-top: 25px;
 
   @media (min-width: ${(props) => props.theme.xs}) {
     margin-bottom: 75px;
-    margin-top: 50px;
+    margin-top: -50px;
     padding-top: 25px;
   }
 
   @media (min-width: ${(props) => props.theme.sm}) {
     margin-bottom: 75px;
-    margin-top: 25px;
+    margin-top: -50px;
   }
 
   opacity: ${(props) => (props.shown ? 100 : 0)};
@@ -198,7 +197,7 @@ export async function getStaticProps({ params }) {
   try {
     let { data } = await axios.get(`${process.env.NEXTAUTH_URL}/api/users?link=${linkId}`);
 
-    return { props: { linkId: data.link, user: data }, revalidate: 1 };
+    return { props: { hideHeader: true, linkId: data.link, user: data }, revalidate: 1 };
   } catch (err) {
     console.error(err);
     return { props: { err } };

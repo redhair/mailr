@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Menu = styled.div`
   position: absolute;
-  background: white;
+  background: ${(props) => props.theme.backgroundColor};
   left: -132px;
   top: 50px;
   width: 200px;
@@ -38,7 +38,7 @@ const Menu = styled.div`
     align-items: center;
     align-self: stretch;
     justify-content: center;
-    color: #334150;
+    color: ${(props) => props.theme.textColor};
     font-family: 'Rubik', sans-serif;
     font-weight: 900;
     margin: 16px 10px !important;
