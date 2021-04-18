@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema(
       enum: ['FREE', 'INFLUENCER', 'THOUGHT-LEADER'],
       default: 'FREE',
     },
+    image: {
+      type: String,
+      default: 'https://mailr.s3.amazonaws.com/default_user.png',
+    },
     subscribers: [SubscriberSchema],
     settings: SettingsSchema,
     viewCount: [{ uid: { type: String, required: true } }],

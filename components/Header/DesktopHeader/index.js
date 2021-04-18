@@ -128,7 +128,7 @@ function DesktopHeader({ user, loading, nav, toggleOptions, menuOpen, signOut })
                 user={user}
                 onClick={() => {
                   //show account modal
-                  setModalContent(<AccountInfo user={user} />);
+                  setModalContent(<AccountInfo signOut={signOut} user={user} />);
                   showModal();
                 }}
               />

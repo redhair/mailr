@@ -12,7 +12,7 @@ function AccessDenied(props) {
   const router = useRouter();
   return (
     <Container>
-      <Row>
+      <Row style={{ height: '90vh', paddingBottom: '90px' }}>
         <Column xs={12} align="center" justify="center">
           <Heading level={3}>Unauthorized</Heading>
           <Text>You are not authorized to access this page. Please sign in to see this page.</Text>

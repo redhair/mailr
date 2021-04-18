@@ -1,5 +1,5 @@
 import App from 'next/app';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 import { ModalProvider } from '../components/ModalProvider';
@@ -23,7 +23,13 @@ import 'react-responsive-modal/styles.css';
 const isProduction = process.env.NODE_ENV === 'production';
 
 export default function Client({ Component, pageProps, router }) {
-  // async componentDidMount() {
+  useEffect(() => {
+    ReactGA.initialize('G-41X8QRENQ8', {
+      debug: true,
+    });
+    console.log('GA Page View: ', window.location.pathname + window.location.search);
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
   //   console.log("in app");
   //   // if (isProduction) {
   //   //   LogRocket.init('5oien4/afito', {
@@ -38,13 +44,11 @@ export default function Client({ Component, pageProps, router }) {
   //   //     },
   //   //   });
   //   //   setupLogRocketReact(LogRocket);
-  //   //   ReactGA.initialize('UA-128555364-1');
-  //   //   console.log('GA Page View: ', window.location.pathname + window.location.search);
-  //   //   ReactGA.pageview(window.location.pathname + window.location.search);
+
   //   //   ReactPixel.init('244549500250047', {}, { debug: true });
   //   //   ReactPixel.pageView();
   //   // }
-  // }
+
   const [session, loading] = useSession();
 
   console.log({ session });
@@ -76,7 +80,7 @@ export default function Client({ Component, pageProps, router }) {
                 <Component {...pageProps} />
               </DashboardInterface>
             ) : (
-              <ClientInterface>
+              <ClientInterface loading={loading} session={session}>
                 <Component {...pageProps} />
               </ClientInterface>
             )}

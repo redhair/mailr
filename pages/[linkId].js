@@ -81,28 +81,32 @@ function UserLandingPage({ linkId, user }) {
 
   function onSubmit(e) {
     setLoading(true);
-    axios
-      .put(`/api/users/${user._id}`, {
-        subscriber: {
-          email: e.email,
-          firstName: e.firstName,
-          lastName: e.lastName,
-        },
-      })
-      .then((res) => {
-        setAlert({
-          message: `Congrats! You have successfully joined ${user.name}'s mailing list.`,
-          type: 'success',
-        });
-        setLoading(false);
-      })
-      .catch((err) => {
-        let msg = err.response.data.error || null;
-        setAlert({
-          type: 'danger',
-          message: msg || 'There was an error, try again later',
-        });
-      });
+    console.log('DEBUG2:', document.referrer);
+    alert(document.referrer);
+    document.body.appendChild(`<span>${document.referrer.toString()}</span>`);
+    // axios
+    //   .put(`/api/users/${user._id}`, {
+    //     subscriber: {
+    //       email: e.email,
+    //       firstName: e.firstName,
+    //       lastName: e.lastName,
+    //       referrer: document.referrer,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     setAlert({
+    //       message: `Congrats! You have successfully joined ${user.name}'s mailing list.`,
+    //       type: 'success',
+    //     });
+    //     setLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     let msg = err.response.data.error || null;
+    //     setAlert({
+    //       type: 'danger',
+    //       message: msg || 'There was an error, try again later',
+    //     });
+    //   });
   }
 
   if (error) {
@@ -114,9 +118,9 @@ function UserLandingPage({ linkId, user }) {
   }
 
   const canonical = `https://mailr.link/${linkId}`;
-  const metaTitle = `Join ${user.name}'s mailing list`;
+  const metaTitle = `Join ${user.name ? user.name : user.link}'s mailing list`;
   const metaImage = user.image;
-  const metaImageAlt = `${user.name}'s avatar`;
+  const metaImageAlt = `${user.name ? user.name : user.link}'s avatar`;
   const metaDescription = `The fastest way to grow your mailing list`;
 
   return (
@@ -151,7 +155,7 @@ function UserLandingPage({ linkId, user }) {
         {!alert && !!user && (
           <>
             <Image src={user.image} />
-            <Heading level={3}>Join {user.name}'s mailing list.</Heading>
+            <Heading level={3}>Join {user.name ? user.name : user.link}'s mailing list.</Heading>
             <Formik initialValues={{}} validationSchema={EmailSchema} onSubmit={onSubmit}>
               {() => (
                 <Form>
@@ -185,6 +189,8 @@ export async function getStaticPaths() {
   const paths = res.data.map((user) => ({
     params: { linkId: user.link },
   }));
+
+  // console.log({ paths });
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.

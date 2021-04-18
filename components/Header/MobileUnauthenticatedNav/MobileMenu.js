@@ -17,8 +17,20 @@ const MobileMenu = styled.div`
   /* z-index: 10; */
   top: 0;
   bottom: 0;
-  z-index: 3;
+  z-index: 13;
   transition: left 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    h1 {
+      font-size: 24px;
+    }
+  }
+
+  @media (min-width: ${(props) => props.theme.sm}) {
+    h1 {
+      font-size: 36px;
+    }
+  }
 `;
 
 export default MobileMenu;

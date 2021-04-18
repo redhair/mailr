@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../Button';
+import { Row } from '../../Grid';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Heading, Text } from '../../Typography';
@@ -37,15 +38,22 @@ function UnauthenticatedNav({ signIn }) {
         </Link>
       </Nav>
 
-      <Button onClick={() => router.push('/login')} level="primary">
-        <i
-          className="fas fa-link"
-          style={{
-            marginRight: '8px',
-          }}
-        ></i>
-        Get Your Link
-      </Button>
+      <Row align="center" justify="flex-end">
+        <Link href="/login">
+          <a>
+            <Text bold>Login</Text>
+          </a>
+        </Link>
+        <Button style={{ marginLeft: '32px' }} onClick={() => router.push('/signup')} level="primary">
+          <i
+            className="fas fa-link"
+            style={{
+              marginRight: '8px',
+            }}
+          ></i>
+          Get Your Link
+        </Button>
+      </Row>
     </DesktopHeaderWrapper>
   );
 }

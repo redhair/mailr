@@ -29,6 +29,24 @@ export default mongoMiddleware(async (req, res, connection, models) => {
       });
   }
 
+  function checkUniqueEmail(proposedEmail) {
+    return models.User.findOne({ email: proposedEmail })
+      .then(function (account) {
+        if (account) {
+          console.log('Email not unique: ' + proposedEmail);
+
+          return false;
+        }
+
+        console.log('Found unique email: ' + proposedEmail);
+        return true;
+      })
+      .catch(function (err) {
+        console.error(err);
+        throw err;
+      });
+  }
+
   apiHandler(res, method, {
     GET: (response) => {
       // console.log({ link });
@@ -74,14 +92,24 @@ export default mongoMiddleware(async (req, res, connection, models) => {
       if (action === 'checkLink') {
         console.log('CHECKING UNIQUE LINK');
         let isUnique = await checkUniqueLink(body.link);
-        console.log({ res });
+        console.log('isUnque?', { link: body.link, isUnique });
         if (isUnique) {
-          return response.status(200).json({ message: 'Link is unique' });
+          return await response.status(200).json({ message: 'Link is unique' });
         } else {
-          return response.status(500).json({ error: 'This link is not unique' });
+          return await response.status(500).json({ error: 'This link is not unique' });
+        }
+      } else if (action === 'checkEmail') {
+        console.log('CHECKING UNIQUE EMAIL');
+        let isUnique = await checkUniqueEmail(body.email);
+        console.log('isUnque?', { email: body.email, isUnique });
+        if (isUnique) {
+          return await response.status(200).json({ message: 'Email is unique' });
+        } else {
+          return await response.status(500).json({ error: 'This email is not unique' });
         }
       } else {
-        models.User.create({ ...body }, (error, user) => {
+        console.log('CREATE USER CALLED: ', { body });
+        await models.User.create({ ...body }, (error, user) => {
           if (error) {
             response.status(500).json({ error });
             connection.close();

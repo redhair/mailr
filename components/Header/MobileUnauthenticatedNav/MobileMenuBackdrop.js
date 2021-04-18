@@ -7,10 +7,15 @@ const MobileMenuBackdrop = styled.div`
   height: ${(props) => (props.open ? '100%' : 0)};
   display: flex;
   position: absolute;
-  z-index: ${(props) => (props.open ? 1 : -10)};
+  z-index: ${(props) => (props.open ? 11 : -10)};
   top: 0;
+  left: 0;
   opacity: ${(props) => (props.open ? 100 : 0)};
   transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    width: 100%;
+  }
 `;
 
 export default MobileMenuBackdrop;

@@ -23,29 +23,21 @@ MobileHeader.propTypes = {
 };
 
 const NavList = styled.ol`
+  width: 100%;
   list-style-type: circle;
   color: ${(props) => props.theme.textColor};
-  width: 100%;
+  /* width: auto; */
   margin-left: 12px;
   margin-top: -12px;
+  overflow-y: scroll;
+  margin: 0;
 `;
 
 function MobileHeader({ user, toggleMobileNav, mobileMenuOpen, signIn }) {
   const router = useRouter();
 
   return (
-    <MobileHeaderWrapper justify="space-between" align="center">
-      <MobileWrapper>
-        <Hamburger onClick={toggleMobileNav} />
-      </MobileWrapper>
-      <Link href="/">
-        <a>
-          <Heading style={{ marginBottom: '0' }} level={1}>
-            mailr
-          </Heading>
-        </a>
-      </Link>
-      <div></div>
+    <>
       <MobileMenuBackdrop open={mobileMenuOpen} />
       <MobileMenu open={mobileMenuOpen}>
         <Row justify="space-between" align="center" style={{ marginBottom: '12px' }}>
@@ -92,7 +84,20 @@ function MobileHeader({ user, toggleMobileNav, mobileMenuOpen, signIn }) {
           )}
         </MobileNav>
       </MobileMenu>
-    </MobileHeaderWrapper>
+      <MobileHeaderWrapper justify="space-between" align="center">
+        <MobileWrapper>
+          <Hamburger onClick={toggleMobileNav} />
+        </MobileWrapper>
+        <Link href="/">
+          <a style={{ paddingRight: '25px' }}>
+            <Heading style={{ marginBottom: '0' }} level={1}>
+              mailr
+            </Heading>
+          </a>
+        </Link>
+        <div></div>
+      </MobileHeaderWrapper>
+    </>
   );
 }
 

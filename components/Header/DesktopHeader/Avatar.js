@@ -40,11 +40,8 @@ const AvatarButton = styled(Button)`
 function Avatar({ user, onClick }) {
   return (
     <AvatarButton level="primary" onClick={onClick}>
-      <Greeting style={{ fontWeight: '700' }}>Hi, {!!user.name && user.name}!</Greeting>
-      <AvatarImage
-        src={'https://avatars.githubusercontent.com/u/38800293?s=460&u=5d923acd138af28b0fa742b967b0da33a48f4434&v=4'}
-        alt="Profile Avatar"
-      />
+      <Greeting style={{ fontWeight: '700' }}>{!!user.name ? `Hi, ${user.name}!` : 'Account'}</Greeting>
+      <AvatarImage src={(!!user && user.image) || '/default_user.png'} alt="Profile Avatar" />
     </AvatarButton>
   );
 }

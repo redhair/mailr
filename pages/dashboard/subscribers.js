@@ -67,7 +67,7 @@ function Subscribers(props) {
           <Column xs={12} align="flex-start">
             <Heading level={2}>Subscribers</Heading>
             <Card>
-              <Row justify="space-between">
+              <Row canWrap justify="space-between">
                 <Heading style={{ margin: 0 }} level={3}>
                   Total Subscribers: {user.subscribers.length}
                 </Heading>

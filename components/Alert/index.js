@@ -25,6 +25,10 @@ const Wrapper = styled.div`
         return 'lightgrey';
     }
   }};
+
+  & span {
+    color: ${(props) => props.theme.black};
+  }
 `;
 
 export default function Alert({ type, children, style }) {

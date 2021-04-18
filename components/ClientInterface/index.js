@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { Modal, ModalContext } from '../ModalProvider';
 import { Container } from '../Grid';
 import Footer from '../Footer';
+import { UserProvider, UserContext } from '../UserProvider';
+import axios from 'axios';
 
 const InterfaceContainer = styled(Container)`
   background: ${(props) => props.theme.backgroundColor};
@@ -16,8 +18,21 @@ const InterfaceContainer = styled(Container)`
   }
 `;
 
-const Interface = ({ children }) => {
+const Interface = ({ loading, session, children }) => {
   const { modalContent, showModal, setModalContent } = useContext(ModalContext);
+  const { user, setUser } = useContext(UserContext);
+
+  // useEffect(() => {
+  //   if (session && session.user && !user) {
+  //     console.log('querying user');
+  //     axios
+  //       .get(`/api/users?email=${session.user.email}`)
+  //       .then((res) => {
+  //         setUser(res.data);
+  //       })
+  //       .catch(console.error);
+  //   }
+  // }, [session]);
 
   return (
     <>

@@ -16,6 +16,15 @@ const MobileHeaderWrapper = styled(Row)`
 
   @media (min-width: ${(props) => props.theme.xs}) {
     display: flex;
+    h1 {
+      font-size: 24px;
+    }
+  }
+
+  @media (min-width: ${(props) => props.theme.sm}) {
+    h1 {
+      font-size: 36px;
+    }
   }
 
   @media (min-width: ${(props) => props.theme.lg}) {

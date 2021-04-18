@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useTheme } from 'styled-components';
 import { useRouter } from 'next/router';
 import LoadingBlock from '../components/LoadingBlock';
 import { Heading, Text } from '../components/Typography';
@@ -9,6 +10,7 @@ import { useSession, signin, signout } from 'next-auth/client';
 
 function Home() {
   const router = useRouter();
+  const theme = useTheme();
   const canonical = `https://mailr.link/`;
   const metaTitle = 'mailr';
   const metaImage = '/logo_transparent.png';
@@ -46,7 +48,7 @@ function Home() {
       <Row justify="center" style={{ marginBottom: '100px' }}>
         <style jsx>{`
           blockquote {
-            background: #f9f9f9;
+            background: ${theme.blackBlue};
             border-left: 10px solid #0070f3;
             margin: 1.5em 0px;
             padding: 0.5em 10px;

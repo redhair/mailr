@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import { Heading, Text } from '../components/Typography';
 import { Row, Column, Container } from '../components/Grid';
 import Badge from '../components/Badge';
 import Button from '../components/Button';
 import Range from '../components/Range';
+import { ModalContext } from '../components/ModalProvider';
+import { useSession } from 'next-auth/client';
+import Paywall from '../components/Paywall';
+import axios from 'axios';
 
 const Check = styled.i`
   color: ${(props) => props.theme.primaryColor};
@@ -62,6 +67,51 @@ const PricingCard = styled.div`
 
 export default function Pricing() {
   const [subscribers, setSubscribers] = useState(3000);
+  const { showModal, setModalContent } = useContext(ModalContext);
+  const [session, loading] = useSession();
+  const router = useRouter();
+
+  console.log({ session });
+
+  function registerPayingUser(token) {
+    return axios.post('/api/stripe', { token });
+  }
+
+  function handleUpgradePlan(plan) {
+    if (!!session) {
+      setModalContent(
+        <Paywall
+          // stripeKey={process.env.REACT_APP_STRIPE_KEY}
+          onCompleted={async (stripeError, stripeToken) => {
+            if (stripeError) {
+              console.error({ stripeError });
+              // return onError(stripeError);
+              return;
+            }
+
+            if (stripeToken) {
+              try {
+                let res = await registerPayingUser(stripeToken);
+                // if token successfully saved, set to active
+                if (res.status === 200) {
+                  upgradePlanTo(plan);
+                }
+              } catch (err) {
+                console.error('Error registering paid user: ', { err });
+              }
+            } else {
+              upgradePlanTo(plan);
+            }
+          }}
+          plan={plan}
+        />
+      );
+      showModal();
+    } else {
+      //redirect to login
+      // router.push('/login');
+    }
+  }
 
   return (
     <>
@@ -107,7 +157,7 @@ export default function Pricing() {
                   </li>
                   <li>
                     <Check className="far fa-check-circle"></Check>
-                    <Text>&nbsp;100 Subscriber limit</Text>
+                    <Text>&nbsp;1,000 Subscriber limit</Text>
                   </li>
                   <li>
                     <Check className="far fa-check-circle"></Check>
@@ -145,7 +195,7 @@ export default function Pricing() {
                   </li>
                   <li>
                     <Check className="far fa-check-circle"></Check>
-                    <Text>&nbsp;1000 Subscriber limit</Text>
+                    <Text>&nbsp;5,000 Subscriber limit</Text>
                   </li>
                   <li>
                     <Check className="far fa-check-circle"></Check>
@@ -160,7 +210,9 @@ export default function Pricing() {
                     <Text>&nbsp;Zero risk refund policy</Text>
                   </li>
                   <li>
-                    <Button level="primary">Get Started</Button>
+                    <Button onClick={() => handleUpgradePlan('INFLUENCER')} level="primary">
+                      Get Started
+                    </Button>
                   </li>
                 </ul>
               </PricingCard>
@@ -231,7 +283,9 @@ export default function Pricing() {
                     <Text>&nbsp;Zero risk refund policy</Text>
                   </li>
                   <li>
-                    <Button level="primary">Get Started</Button>
+                    <Button onClick={() => handleUpgradePlan('THOUGHT-LEADER')} level="primary">
+                      Get Started
+                    </Button>
                   </li>
                 </ul>
               </PricingCard>
@@ -253,10 +307,10 @@ export default function Pricing() {
               <Column xs={12} sm={8} style={{ height: 'auto' }}>
                 <Range
                   withSingleValue
-                  step={1000}
+                  step={5000}
                   name="subscribers"
-                  defaultValue={3000}
-                  items={[1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]}
+                  defaultValue={5000}
+                  items={[5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000]}
                   onRangeChange={(value) => {
                     setSubscribers(value);
                   }}
@@ -264,7 +318,7 @@ export default function Pricing() {
               </Column>
               <Column xs={12} sm={4}>
                 <Heading level={3} style={{ marginBottom: '0px' }}>
-                  {subscribers}
+                  {Number(subscribers).toLocaleString()}
                 </Heading>
                 <Text>Subscribers</Text>
               </Column>
@@ -280,7 +334,7 @@ export default function Pricing() {
                     </Row>
                     <Row canWrap>
                       <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
-                        ${(9.99 + parseInt(subscribers) * 0.01 - 10).toFixed(2)}
+                        ${(9.99 + parseInt(subscribers / 5) * 0.01 - 10).toFixed(2)}
                       </Heading>
                       <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
                     </Row>
@@ -316,7 +370,7 @@ export default function Pricing() {
                     </Row>
                     <Row canWrap>
                       <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
-                        ${(19.99 + parseInt(subscribers) * 0.01 - 10).toFixed(2)}
+                        ${(19.99 + parseInt(subscribers / 5) * 0.01 - 10).toFixed(2)}
                       </Heading>
                       <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
                     </Row>

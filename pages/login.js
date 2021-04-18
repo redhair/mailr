@@ -8,6 +8,7 @@ import { Heading, Text } from '../components/Typography';
 import Input from '../components/InputField';
 import LoadingBlock from '../components/LoadingBlock';
 import { Formik, Form, Field } from 'formik';
+import Cookies from 'js-cookie';
 
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -42,6 +43,16 @@ const Wrapper = styled(Container)`
     width: 100%;
     margin-left: 0 !important;
     margin-right: 0 !important;
+  }
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    width: auto;
+    margin: 50px auto 100px auto;
+  }
+
+  @media (min-width: ${(props) => props.theme.md}) {
+    width: 100%;
+    margin: 100px auto 130px auto;
   }
 `;
 
@@ -138,8 +149,6 @@ const LinkSchema = Yup.object().shape({
 
 export default function Login({ providers, baseUrl }) {
   const [loading, setLoading] = useState(false);
-  const [loginScreen, setLoginScreen] = useState('login');
-  const [selectedLink, setSelectedLink] = useState();
   const [signInOptions, setSignInOptions] = useState({});
 
   function getIcon(icon) {
@@ -188,128 +197,82 @@ export default function Login({ providers, baseUrl }) {
     </>
   );
 
-  function LoginPageContent() {
-    if (loginScreen === 'login') {
-      return (
-        <Wrapper style={{ maxWidth: '400px', width: '100%', margin: '150px auto 100px auto' }}>
-          <Row align="center" justify="center">
-            <Column xs={12} align="center" justify="center">
-              <Heading level={1} style={{ marginBottom: '28px' }}>
-                Login
-              </Heading>
-
-              <Formik
-                initialValues={{}}
-                validationSchema={EmailSchema}
-                onSubmit={({ email }) => {
-                  // setLoading(true);
-                  setSignInOptions({
-                    provider: 'email',
-                    options: { email, callbackUrl: `${baseUrl}/dashboard/subscribers` },
-                  });
-                  setLoginScreen('selectLink');
-                  // return;
-                  // signIn('email', { email, callbackUrl: `${baseUrl}/dashboard/subscribers` });
-                }}
-              >
-                {({ handleSubmit }) => (
-                  <FormWrapper
-                    style={{ width: '100%' }}
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      handleSubmit();
-                    }}
-                  >
-                    <Input placeholder="email@example.com" label="Email" hideLabel type="text" name="email" />
-
-                    <Button level="primary" type="submit" disabled={loading}>
-                      {loading ? <LoadingBlock quiet small color="white" /> : 'Sign in with email'}
-                    </Button>
-                  </FormWrapper>
-                )}
-              </Formik>
-              <Divider>
-                <Text bold>OR</Text>
-              </Divider>
-              {Object.values(providers).map((provider, i) => {
-                if (provider.id !== 'email') {
-                  return (
-                    <SocialButton
-                      key={i}
-                      level="outline"
-                      onClick={() => {
-                        setSignInOptions({
-                          provider: provider.id,
-                          options: { callbackUrl: `${baseUrl}/dashboard/subscribers` },
-                        });
-                        setLoginScreen('selectLink');
-                        // return signIn(provider.id, { callbackUrl: `${baseUrl}/dashboard/subscribers` });
-                      }}
-                    >
-                      {getIcon(provider.id)}&nbsp;Sign in with {provider.name}
-                    </SocialButton>
-                  );
-                }
-
-                return null;
-              })}
-            </Column>
-          </Row>
-        </Wrapper>
-      );
-    } else if (loginScreen === 'selectLink') {
-      return (
-        <Wrapper style={{ maxWidth: '400px', width: '100%', margin: '150px auto 100px auto' }}>
-          <Row align="center" justify="center">
-            <Column xs={12}>
-              <Heading level={1}>Enter your link</Heading>
-              {/* <Input type="text" /> */}
-              <Formik
-                initialValues={{}}
-                validationSchema={LinkSchema}
-                onSubmit={({ link }) => {
-                  console.log({ link });
-                  // append link to the user after successful sign in
-                  //right now new users arent getting their link attatched
-                  signIn(signInOptions.provider, signInOptions.options);
-                }}
-              >
-                {({ handleSubmit, errors, touched }) => (
-                  <FormWrapper
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      handleSubmit();
-                    }}
-                  >
-                    <LinkInputContainer>
-                      <Text>mailr.link/</Text>
-
-                      <Field
-                        placeholder="yournamehere"
-                        label="Link"
-                        hideLabel
-                        type="text"
-                        name="link"
-                        autocomplete="off"
-                      />
-
-                      <Button level="primary" type="submit" disabled={loading}>
-                        {loading ? (
-                          <LoadingBlock quiet small color="white" />
-                        ) : (
-                          <i className="fas fa-chevron-right"></i>
-                        )}
-                      </Button>
-                    </LinkInputContainer>
-                    {errors.link && touched.link ? <div className="error-message">{errors.link}</div> : null}
-                  </FormWrapper>
-                )}
-              </Formik>
-            </Column>
-          </Row>
-        </Wrapper>
-      );
+  async function isUniqueEmail(email) {
+    try {
+      let unique = await axios.post(`/api/users?action=checkEmail`, { email });
+      console.log({ unique });
+      return unique;
+    } catch (err) {
+      console.error(err);
     }
+  }
+
+  function LoginPageContent() {
+    return (
+      <Wrapper style={{ height: '100%', maxWidth: '400px' }}>
+        <Row align="center" justify="center">
+          <Column xs={12} align="center" justify="center">
+            <Heading level={1} style={{ marginBottom: '28px' }}>
+              Login
+            </Heading>
+
+            <Formik
+              initialValues={{}}
+              validationSchema={EmailSchema}
+              onSubmit={({ email }) => {
+                // setLoading(true);
+                setSignInOptions({
+                  provider: 'email',
+                  options: { email, callbackUrl: `${baseUrl}/dashboard/subscribers` },
+                });
+                //check if login exists
+                signIn('email', { email, callbackUrl: `${baseUrl}/dashboard/subscribers` });
+              }}
+            >
+              {({ handleSubmit }) => (
+                <FormWrapper
+                  style={{ width: '100%' }}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSubmit();
+                  }}
+                >
+                  <Input placeholder="email@example.com" label="Email" hideLabel type="text" name="email" />
+
+                  <Button level="primary" type="submit" disabled={loading}>
+                    {loading ? <LoadingBlock quiet small color="white" /> : 'Sign in with email'}
+                  </Button>
+                </FormWrapper>
+              )}
+            </Formik>
+            <Divider>
+              <Text bold>OR</Text>
+            </Divider>
+            {Object.values(providers).map((provider, i) => {
+              if (provider.id !== 'email') {
+                return (
+                  <SocialButton
+                    key={i}
+                    level="outline"
+                    onClick={() => {
+                      setSignInOptions({
+                        provider: provider.id,
+                        options: { callbackUrl: `${baseUrl}/dashboard/subscribers` },
+                      });
+                      return signIn(provider.id, { callbackUrl: `${baseUrl}/dashboard/subscribers` });
+                    }}
+                  >
+                    {getIcon(provider.id)}&nbsp;Sign in with {provider.name}
+                  </SocialButton>
+                );
+              }
+
+              return null;
+            })}
+          </Column>
+        </Row>
+      </Wrapper>
+    );
   }
 }
 

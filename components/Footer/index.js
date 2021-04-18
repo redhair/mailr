@@ -37,25 +37,6 @@ const SocialLinks = styled(Row)`
     margin: 0 15px;
     font-weight: normal;
   }
-
-  &::before,
-  &::after {
-    content: '';
-    height: 1px;
-    border-bottom: 0px solid ${(props) => props.theme.primaryColor};
-    top: 0;
-    width: 100%;
-  }
-
-  &::before {
-    margin-left: -30px;
-    margin-right: 25px;
-  }
-
-  &::after {
-    margin-right: -30px;
-    margin-left: 25px;
-  }
 `;
 const SocialIcon = styled.i`
   margin: 12px;

@@ -38,8 +38,12 @@ const Nav = styled.nav`
     margin-left: 0;
   }
 
-  @media (max-width: ${(props) => props.theme.md}) {
+  @media (max-width: ${(props) => props.theme.xs}) {
     display: none;
+  }
+
+  @media (max-width: ${(props) => props.theme.lg}) {
+    display: flex;
   }
 `;
 

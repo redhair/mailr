@@ -25,6 +25,8 @@ const SettingsSchema = Yup.object().shape({
 
 function Settings(props) {
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState();
+
   const { user } = useContext(UserContext);
 
   function onSubmit(e) {
@@ -34,9 +36,10 @@ function Settings(props) {
   return (
     <Row align="flex-start" justify="flex-start" style={{ height: '100vh' }}>
       <Column xs={12} align="flex-start" justify="flex-start">
-        <Heading level={2} style={{ marginBottom: '24px' }}>
+        <Heading level={2} style={{ width: '100%', marginBottom: '24px' }}>
           Settings
         </Heading>
+        {!!alert && <Alert type={alert.type}>{alert.message}</Alert>}
 
         <Formik initialValues={{}} validationSchema={SettingsSchema} onSubmit={onSubmit}>
           {() => (

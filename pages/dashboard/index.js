@@ -15,8 +15,19 @@ const NumberedList = styled.ol`
     font-size: 16px;
   }
 `;
-
+let unreleased = true;
 function Dashboard(props) {
+  if (unreleased) {
+    return (
+      <Row style={{ height: '75vh' }} justify="center" align="center">
+        <Column xs={12} justify="center" align="center">
+          <img style={{ opacity: '0.3' }} height="150" src="/dashboard.png" />
+          <Heading level={4}>Coming soon</Heading>
+          <Text>Dashboard is not available yet.</Text>
+        </Column>
+      </Row>
+    );
+  }
   return (
     <Row align="flex-start" justify="flex-start" style={{ height: '100vh' }}>
       <Column xs={12} align="flex-start" justify="flex-start">

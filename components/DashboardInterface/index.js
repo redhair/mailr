@@ -24,11 +24,19 @@ const InterfaceContainer = styled(Container)`
     /* margin-top: 220px; */
     overflow: scroll;
     /* width: 100%; */
+    padding-left: 0;
+    padding-right: 0;
   }
 
   @media (min-width: ${(props) => props.theme.sm}) {
     /* padding-left: 270px; */
     /* margin-top: 125px; */
+  }
+
+  @media (min-width: ${(props) => props.theme.lg}) {
+    /* padding-left: 270px; */
+    /* margin-top: 125px; */
+    width: 100%;
   }
 `;
 
@@ -73,6 +81,7 @@ const MobileLink = styled(Row)`
   justify-content: space-between;
   padding: 0 16px;
   align-items: center;
+  z-index: 10;
 
   @media (min-width: ${(props) => props.theme.xs}) {
     display: flex;
@@ -139,6 +148,14 @@ const DashboardInterfaceNav = styled.nav`
     bottom: 0;
     right: -1px;
     height: 100%;
+  }
+
+  @media (min-width: ${(props) => props.theme.xs}) {
+    display: none;
+  }
+
+  @media (min-width: ${(props) => props.theme.lg}) {
+    display: flex;
   }
 `;
 
@@ -271,7 +288,7 @@ const Interface = ({ loading, session, children }) => {
             <>
               <CopyInput
                 readOnly
-                autoFocus
+                // autoFocus
                 onFocus={(event) => event.target.select()}
                 value={'https://mailr.link/' + user.link}
               />
@@ -291,7 +308,7 @@ const Interface = ({ loading, session, children }) => {
 
         <Container>
           <Row canWrap align="flex-start" justify="flex-start">
-            <Column xs={2} align="space-between" justify="flex-start">
+            <Column xs={0} md={2} align="space-between" justify="flex-start">
               {/* {!!session.user && (
                 <Link href="/dashboard">
                   <a>
@@ -336,7 +353,7 @@ const Interface = ({ loading, session, children }) => {
                 <Text bold>&nbsp;My Link</Text>
               </LinkButton> */}
             </Column>
-            <Column xs={10} align="flex-start" justify="flex-start">
+            <Column xs={12} md={10} align="flex-start" justify="flex-start">
               <InterfaceContainer>{children}</InterfaceContainer>
             </Column>
           </Row>

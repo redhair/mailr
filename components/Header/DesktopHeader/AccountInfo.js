@@ -52,7 +52,7 @@ const Wrapper = styled.div`
   }
 `;
 
-function AccountInfo() {
+function AccountInfo({ signOut }) {
   const { user } = useContext(UserContext);
 
   return (
@@ -61,7 +61,7 @@ function AccountInfo() {
         Account
       </Heading>
       <Gradient>
-        {!!user && <Avatar src={user.image} alt="Avatar" />}
+        {!!user && <Avatar src={(!!user && user.image) || '/default_user.png'} alt="Avatar" />}
         <Row>
           <Column xs={6}>{!!user && <Text>Subscribers: {user.subscribers.length}</Text>}</Column>
           <Column xs={6}>{!!user && <Text>Plan: {user.plan}</Text>}</Column>
@@ -83,7 +83,7 @@ function AccountInfo() {
         <Button level="link">
           <i class="fas fa-copy" style={{ marginRight: '8px' }}></i>Copy Link
         </Button>
-        <Button level="link">
+        <Button level="link" onClick={signOut}>
           <i class="fas fa-sign-out-alt" style={{ marginRight: '8px' }}></i>Logout
         </Button>
       </Row>

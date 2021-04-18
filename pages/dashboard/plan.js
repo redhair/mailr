@@ -53,7 +53,7 @@ function Plan(props) {
   }
 
   return (
-    <Row canWrap align="flex-start" justify="flex-start" style={{ height: '100vh' }}>
+    <Row canWrap align="flex-start" justify="flex-start" style={{ minHeight: '75vh' }}>
       <Column xs={12} align="flex-start" justify="flex-start">
         <Heading level={2} style={{ marginBottom: '24px' }}>
           Plan Usage
@@ -70,86 +70,109 @@ function Plan(props) {
         </Card>
       </Column>
 
-      <Column xs={12} align="flex-start" justify="flex-start">
-        <Heading level={2} style={{ marginBottom: '24px' }}>
+      <Column xs={12} sm={12} md={12} align="flex-start" justify="flex-start">
+        <Heading level={2} style={{ margin: '24px 0' }}>
           Upgrades
         </Heading>
-      </Column>
-      <Column xs={12} sm={6} md={4}>
-        <Card>
-          <Column>
-            <Row canWrap>
-              <Heading level={3} style={{ marginRight: '6px' }}>
-                Influencer
-              </Heading>
-            </Row>
-            <Row canWrap>
-              <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
-                $9.99
-              </Heading>
-              <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
-            </Row>
-          </Column>
-          <ul>
-            <li>
-              <Check className="far fa-check-circle"></Check>
-              <Text>&nbsp;1000 Subscriber limit</Text>
-            </li>
-            <li>
-              <Check className="far fa-check-circle"></Check>
-              <Text>&nbsp;Unlimited free exports</Text>
-            </li>
-            <li>
-              <Check className="far fa-check-circle"></Check>
-              <Text>&nbsp;Access to advanced real time growth analytics</Text>
-            </li>
-            <li>
-              <Check className="far fa-check-circle"></Check>
-              <Text>&nbsp;Zero risk refund policy</Text>
-            </li>
-            <li>
-              <Button level="primary">Upgrade</Button>
-            </li>
-          </ul>
-        </Card>
-      </Column>
-      <Column xs={12} sm={6} md={4}>
-        <Card>
-          <Column>
-            <Row canWrap>
-              <Heading level={3} style={{ marginRight: '6px' }}>
-                Thought Leader
-              </Heading>
-            </Row>
-            <Row canWrap>
-              <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
-                $19.99
-              </Heading>
-              <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
-            </Row>
-          </Column>{' '}
-          <ul>
-            <li>
-              <Check className="far fa-check-circle"></Check>
-              <Text>&nbsp;10,000 Subscriber limit</Text>
-            </li>
-            <li>
-              <Check className="far fa-check-circle"></Check>
-              <Text>&nbsp;Unlimited free exports</Text>
-            </li>
-            <li>
-              <Check className="far fa-check-circle"></Check>
-              <Text>&nbsp;Access to advanced real time growth analytics</Text>
-            </li>
-            <li>
-              <Check className="far fa-check-circle"></Check>
-              <Text>&nbsp;Zero risk refund policy</Text>
-            </li>
-            <li>
-              <Button level="primary">Upgrade</Button>
-            </li>
-          </ul>
-        </Card>
+        <Row canWrap style>
+          {!!user && user.plan === 'FREE' ? (
+            <>
+              <Column xs={12} sm={6} align="flex-start" justify="flex-start">
+                <Card>
+                  <Column>
+                    <Row canWrap>
+                      <Heading level={3} style={{ marginRight: '6px' }}>
+                        Influencer
+                      </Heading>
+                    </Row>
+                    <Row canWrap>
+                      <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
+                        $9.99
+                      </Heading>
+                      <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
+                    </Row>
+                  </Column>
+                  <ul>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;1000 Subscriber limit</Text>
+                    </li>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Unlimited free exports</Text>
+                    </li>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Access to advanced real time growth analytics</Text>
+                    </li>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Zero risk refund policy</Text>
+                    </li>
+                    <li>
+                      <Button level="primary">Upgrade</Button>
+                    </li>
+                  </ul>
+                </Card>
+              </Column>
+            </>
+          ) : (
+            <></>
+          )}
+
+          {!!user && (user.plan === 'FREE' || user.plan === 'INFLUENCER') ? (
+            <>
+              <Column xs={12} sm={6} align="flex-start" justify="flex-start">
+                <Card>
+                  <Column>
+                    <Row canWrap>
+                      <Heading level={3} style={{ marginRight: '6px' }}>
+                        Thought Leader
+                      </Heading>
+                    </Row>
+                    <Row canWrap>
+                      <Heading style={{ marginBottom: 0, color: '#0070f3' }} level={3}>
+                        $19.99
+                      </Heading>
+                      <Text style={{ color: 'rgb(153 157 166)' }}>&nbsp;per month</Text>
+                    </Row>
+                  </Column>{' '}
+                  <ul>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;10,000 Subscriber limit</Text>
+                    </li>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Unlimited free exports</Text>
+                    </li>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Access to advanced real time growth analytics</Text>
+                    </li>
+                    <li>
+                      <Check className="far fa-check-circle"></Check>
+                      <Text>&nbsp;Zero risk refund policy</Text>
+                    </li>
+                    <li>
+                      <Button level="primary">Upgrade</Button>
+                    </li>
+                  </ul>
+                </Card>
+              </Column>
+            </>
+          ) : (
+            <>
+              <Card>
+                <Row justify="space-between">
+                  <Heading style={{ margin: 0 }} level={2}>
+                    No upgrades available
+                  </Heading>
+                </Row>
+              </Card>
+            </>
+          )}
+        </Row>
       </Column>
     </Row>
   );

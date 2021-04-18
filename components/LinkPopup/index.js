@@ -13,26 +13,36 @@ const CopyButton = styled(Button)`
   font-size: 23px;
   position: relative;
   outline: 0;
-  border-color: #eee;
+  border-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.textColor};
 
   @media (min-width: ${(props) => props.theme.xs}) {
     font-size: 12px;
   }
+
+  @media (min-width: ${(props) => props.theme.md}) {
+    font-size: 24px;
+  }
 `;
 
 const CopyInput = styled.input`
-  background: ${(props) => props.theme.backgroundColor};
+  background: ${(props) => props.theme.black};
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   padding: 15px 30px;
   border: 0;
   outline: 0;
   width: 100%;
+  color: ${(props) => props.theme.textColor};
   font-family: ${(props) => props.theme.bodyFont};
   font-size: 24px;
 
   @media (min-width: ${(props) => props.theme.xs}) {
     font-size: 12px;
+  }
+
+  @media (min-width: ${(props) => props.theme.md}) {
+    font-size: 24px;
   }
 `;
 
@@ -73,7 +83,7 @@ function LinkPopup(props) {
           value={'https://mailr.link/' + props.link}
         />
         <CopyButton
-          level="outline"
+          level="primary"
           onClick={() => {
             setShowCopyText(true);
             copyToClipboard('https://mailr.link/' + props.link);

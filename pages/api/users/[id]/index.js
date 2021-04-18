@@ -48,7 +48,7 @@ export default mongoMiddleware(async (req, res, connection, models) => {
       try {
         if (action === 'createLink') {
           console.log('CREATING UNIQUE LINK FOR: ', id);
-          models.User.findByIdAndUpdate(id, { link: await generateUniqueLink(generateLink()) }, { new: true }).exec(
+          models.User.findByIdAndUpdate(id, { link: await generateUniqueLink(body.link) }, { new: true }).exec(
             (error, user) => {
               if (error) {
                 connection.close();
@@ -67,7 +67,7 @@ export default mongoMiddleware(async (req, res, connection, models) => {
     PUT: (response) => {
       console.log('PUT User');
       if (action === 'editProfile') {
-        models.User.findOneAndUpdate({ _id: id }, { link: body.link }, (error, user) => {
+        models.User.findOneAndUpdate({ _id: id }, { ...body }, (error, user) => {
           console.log(error, user);
           if (error) {
             return response.status(500).json({ error });
