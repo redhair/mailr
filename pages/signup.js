@@ -10,6 +10,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import { Formik, Form, Field } from 'formik';
 import { debounce } from 'lodash';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -155,7 +156,7 @@ const validationDebounced = debounce(validationNameFunction, 1000);
 
 export default function SignUp({ providers, baseUrl }) {
   const [loading, setLoading] = useState(false);
-  const [screen, setScreen] = useState('chooseLink');
+  const [screen, setScreen] = useState('unreleased'); //useState('chooseLink');
   const [available, setAvailable] = useState(true);
   const [selectedLink, setSelectedLink] = useState();
   const [signInOptions, setSignInOptions] = useState({});
@@ -225,6 +226,28 @@ export default function SignUp({ providers, baseUrl }) {
   }
 
   function SignInPageContent() {
+    if (screen === 'unreleased') {
+      return (
+        <Wrapper style={{ height: '100%', maxWidth: '400px', textAlign: 'center' }}>
+          <Row align="center" justify="center">
+            <Column xs={12} align="center" justify="center">
+              <Heading level={1}>Sorry 🚫</Heading>
+              <Text>
+                Signups are currently disabled as we are only accepting accounts that are part of our beta group. If you
+                are interested in joining mailr's beta group please reach out to{' '}
+                <a href="mailto:tom@mailr.link">tom@mailr.link</a> and we will send you an application.
+                <br />
+                <br /> If you are already part of our beta group you can log in to your account{' '}
+                <Link href="/login">
+                  <a>here</a>
+                </Link>
+                .
+              </Text>
+            </Column>
+          </Row>
+        </Wrapper>
+      );
+    }
     if (screen === 'login') {
       return (
         <Wrapper style={{ height: '100%', maxWidth: '400px' }}>
@@ -333,7 +356,7 @@ export default function SignUp({ providers, baseUrl }) {
                         hideLabel
                         type="text"
                         name="link"
-                        autocomplete="off"
+                        autoComplete="off"
                       />
                       <NextButton available={available} level="primary" type="submit" disabled={loading}>
                         {loading ? (

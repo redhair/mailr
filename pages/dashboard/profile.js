@@ -25,10 +25,11 @@ function Profile(props) {
   const setEditorRef = useRef();
   const [alert, setAlert] = useState();
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [imageState, setImageState] = useState('old');
   const [displayImage, setDisplayImage] = useState('/default_user.png');
   const [newImageFile, setNewImageFile] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   // console.log({ user });
 
   useEffect(() => {
@@ -36,6 +37,19 @@ function Profile(props) {
       setDisplayImage(user.image);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (refresh && !!user) {
+      console.log('refreshing user');
+      axios
+        .get(`/api/users?email=${user.email}`)
+        .then((res) => {
+          setUser(res.data);
+          setRefresh(false);
+        })
+        .catch(console.error);
+    }
+  }, [refresh]);
 
   const ProfileSchema = Yup.object().shape({
     name: Yup.string(),
@@ -134,6 +148,17 @@ function Profile(props) {
           });
 
           console.log({ userUpdate });
+
+          if (userUpdate.status === 200) {
+            setImageState('old');
+            setDisplayImage(userUpdate.data.user.image);
+            setNewImageFile([]);
+            setAlert({
+              type: 'success',
+              message: 'Successfully uploaded new profile image! Please refresh your browser to see the update.',
+            });
+            setRefresh(true);
+          }
         } else {
           throw 'There was an error with the upload';
         }
@@ -167,7 +192,7 @@ function Profile(props) {
         ) : (
           <>
             {!!alert && <Alert type={alert.type}>{alert.message}</Alert>}
-            <Row align="flex-start" justify="flex-start" canWrap>
+            <Row style={{ marginTop: '32px' }} align="flex-start" justify="flex-start" canWrap>
               <Avatar
                 style={{ marginRight: '64px' }}
                 imageState={imageState}

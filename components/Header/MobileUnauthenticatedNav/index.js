@@ -59,7 +59,7 @@ function MobileHeader({ user, toggleMobileNav, mobileMenuOpen, signIn }) {
 
           <Link href="/login">Login</Link>
 
-          <Link href="/pricing">Pricing</Link>
+          {/* <Link href="/pricing">Pricing</Link> */}
           {!!user && (
             <>
               <Link href="/dashboard">Dashboard</Link>

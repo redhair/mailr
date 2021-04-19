@@ -19,23 +19,23 @@ function UnauthenticatedNav({ signIn }) {
             <Heading level={2}>mailr</Heading>
           </a>
         </Link>
-        <Link href="/pricing">
+        {/* <Link href="/pricing">
           <a>
             <Text bold>Pricing</Text>
           </a>
-        </Link>
+        </Link> */}
 
-        <Link href="/blog">
+        {/* <Link href="/blog">
           <a>
             <Text bold>Blog</Text>
           </a>
-        </Link>
+        </Link> */}
 
-        <Link href="/faq">
+        {/* <Link href="/faq">
           <a>
             <Text bold>FAQ</Text>
           </a>
-        </Link>
+        </Link> */}
       </Nav>
 
       <Row align="center" justify="flex-end">

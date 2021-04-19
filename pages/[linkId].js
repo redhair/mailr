@@ -81,32 +81,30 @@ function UserLandingPage({ linkId, user }) {
 
   function onSubmit(e) {
     setLoading(true);
-    console.log('DEBUG2:', document.referrer);
-    alert(document.referrer);
-    document.body.appendChild(`<span>${document.referrer.toString()}</span>`);
-    // axios
-    //   .put(`/api/users/${user._id}`, {
-    //     subscriber: {
-    //       email: e.email,
-    //       firstName: e.firstName,
-    //       lastName: e.lastName,
-    //       referrer: document.referrer,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     setAlert({
-    //       message: `Congrats! You have successfully joined ${user.name}'s mailing list.`,
-    //       type: 'success',
-    //     });
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     let msg = err.response.data.error || null;
-    //     setAlert({
-    //       type: 'danger',
-    //       message: msg || 'There was an error, try again later',
-    //     });
-    //   });
+
+    axios
+      .put(`/api/users/${user._id}`, {
+        subscriber: {
+          email: e.email,
+          firstName: e.firstName,
+          lastName: e.lastName,
+          signUpSource: document.referrer,
+        },
+      })
+      .then((res) => {
+        setAlert({
+          message: `Congrats! You have successfully joined ${user.name ? user.name : user.link}'s mailing list.`,
+          type: 'success',
+        });
+        setLoading(false);
+      })
+      .catch((err) => {
+        let msg = err.response.data.error || null;
+        setAlert({
+          type: 'danger',
+          message: msg || 'There was an error, try again later',
+        });
+      });
   }
 
   if (error) {

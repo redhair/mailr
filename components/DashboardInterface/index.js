@@ -188,19 +188,19 @@ const Interface = ({ loading, session, children }) => {
   }, [session]);
 
   const nav = [
-    {
-      name: 'Dashboard',
-      href: '/dashboard',
-      icon: (
-        <i
-          className="fas fa-chart-pie"
-          style={{
-            marginRight: '8px',
-            fontSize: '20px',
-          }}
-        ></i>
-      ),
-    },
+    // {
+    //   name: 'Dashboard',
+    //   href: '/dashboard',
+    //   icon: (
+    //     <i
+    //       className="fas fa-chart-pie"
+    //       style={{
+    //         marginRight: '8px',
+    //         fontSize: '20px',
+    //       }}
+    //     ></i>
+    //   ),
+    // },
     {
       name: 'Subscribers',
       href: '/dashboard/subscribers',

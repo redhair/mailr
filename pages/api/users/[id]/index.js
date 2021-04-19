@@ -67,14 +67,21 @@ export default mongoMiddleware(async (req, res, connection, models) => {
     PUT: (response) => {
       console.log('PUT User');
       if (action === 'editProfile') {
-        models.User.findOneAndUpdate({ _id: id }, { ...body }, (error, user) => {
-          console.log(error, user);
-          if (error) {
-            return response.status(500).json({ error });
-          }
+        models.User.findOneAndUpdate(
+          { _id: id },
+          { ...body },
+          {
+            new: true,
+          },
+          (error, user) => {
+            console.log(error, user);
+            if (error) {
+              return response.status(500).json({ error });
+            }
 
-          return response.status(200).json({ user });
-        });
+            return response.status(200).json({ user });
+          }
+        );
       } else if (action === 'pageView') {
         const viewId = { uid: req.cookies.cookieName }; //uuidv4();
 
@@ -94,6 +101,7 @@ export default mongoMiddleware(async (req, res, connection, models) => {
                 email: body.subscriber.email,
                 firstName: body.subscriber.firstName,
                 lastName: body.subscriber.lastName,
+                signUpSource: body.subscriber.signUpSource,
                 created_at: new Date(),
               },
             },

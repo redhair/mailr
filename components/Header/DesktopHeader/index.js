@@ -69,7 +69,7 @@ function DesktopHeader({ user, loading, nav, toggleOptions, menuOpen, signOut })
                 </Text>
               </a>
             </Link>
-            <Link href="/pricing">
+            {/* <Link href="/pricing">
               <a>
                 <Text
                   style={
@@ -110,7 +110,7 @@ function DesktopHeader({ user, loading, nav, toggleOptions, menuOpen, signOut })
                   FAQ
                 </Text>
               </a>
-            </Link>
+            </Link> */}
           </Nav>
           <div>
             <Row>

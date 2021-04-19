@@ -85,7 +85,7 @@ const ButtonWrapper = styled.button`
       `;
     } else if (props.level === 'outline') {
       return `
-        color: #505050;
+        color: ${props.theme.textColor};
         background: transparent;
         border: 1px solid #d2dce0;
         box-shadow: none;
