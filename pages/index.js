@@ -70,7 +70,7 @@ function Home() {
           <Heading level={1}>The #1 way to build a mailing list without a website</Heading>
           <Button
             onClick={() => {
-              router.push('/login');
+              router.push('/signup');
             }}
             level="primary"
           >
@@ -126,7 +126,12 @@ function Home() {
             </Text>
           </p>
           <Column xs={12} align="center">
-            <Button level="primary" onClick={signin}>
+            <Button
+              level="primary"
+              onClick={() => {
+                router.push('/signup');
+              }}
+            >
               <i
                 className="fas fa-link"
                 style={{
